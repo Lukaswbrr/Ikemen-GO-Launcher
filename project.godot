@@ -15,3 +15,12 @@ config/description="A experimental launcher for Ikemen GO"
 config/tags=PackedStringArray("version_control")
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "red",
+"res://scenes/": "blue",
+"res://scripts/": "green",
+"res://themes/": "purple"
+}
