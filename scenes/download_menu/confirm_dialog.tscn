@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bvn0nsupvvx1c"]
+
+[node name="ConfirmDialog" type="ConfirmationDialog"]
+size = Vector2i(860, 158)
+dialog_text = "The project data has been created.
+In order to play the game, it needs to be downloaded first.
+If you cancel now, you can download it later by accessing the game through the launcher.
+Proceed download?"

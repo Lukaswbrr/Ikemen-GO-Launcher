@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b8dyyll4nlftx"]
+
+[node name="ChararacterItem" type="HBoxContainer"]
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "%s"
+
+[node name="Add" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Add"
+
+[node name="Misc" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Misc"

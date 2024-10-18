@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bign8vhyrxqcq"]
+
+[node name="ChararacterItem" type="HBoxContainer"]
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "%s"
+
+[node name="Add" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Add"
+
+[node name="AddDef" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Add to def"
+
+[node name="Remove" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Remove"
+
+[node name="RemoveDef" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Remove from def"
+
+[node name="Misc" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 0
+text = "Misc"

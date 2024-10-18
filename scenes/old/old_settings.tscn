@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3 uid="uid://unc5qq52galc"]
+
+[ext_resource type="Script" path="res://scripts/settings.gd" id="1_sfjsf"]
+
+[node name="SettingsWindow" type="Window"]
+title = "Settings"
+initial_position = 1
+size = Vector2i(700, 500)
+script = ExtResource("1_sfjsf")
+
+[node name="Backgroud" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_right = 175.0
+offset_bottom = 450.0
+grow_horizontal = 2
+tab_alignment = 1
+current_tab = 0
+
+[node name="General" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Scroll" type="VBoxContainer" parent="TabContainer/General"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="AutoUnzip" type="HBoxContainer" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutoUnzip"]
+layout_mode = 2
+text = "Automatically unzip on download"
+
+[node name="AutoLoadFolders" type="HBoxContainer" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutoLoadFolders"]
+layout_mode = 2
+text = "Auto load game folders"
+
+[node name="SaveFolders" type="Button" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+text = "Save game folders"
+
+[node name="JSONLocation" type="Button" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+text = "Open settings json folder"
+
+[node name="ResetFolders" type="Button" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+text = "Reset folders to default"
+
+[node name="TabBar2" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="TabBar3" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="TabBar4" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="TabBar5" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[connection signal="pressed" from="TabContainer/General/Scroll/SaveFolders" to="." method="_on_save_folders_pressed"]
+[connection signal="pressed" from="TabContainer/General/Scroll/JSONLocation" to="." method="_on_json_location_pressed"]
+[connection signal="pressed" from="TabContainer/General/Scroll/ResetFolders" to="." method="_on_reset_folders_pressed"]

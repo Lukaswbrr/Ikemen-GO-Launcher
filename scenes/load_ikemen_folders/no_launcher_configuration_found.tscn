@@ -1,0 +1,107 @@
+[gd_scene load_steps=2 format=3 uid="uid://ciy4cld0pbacv"]
+
+[ext_resource type="Script" path="res://scripts/no_launcher_configuration_found.gd" id="1_gxsqs"]
+
+[node name="Panel" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -319.5
+offset_top = -155.5
+offset_right = 319.5
+offset_bottom = 155.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_gxsqs")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Warning" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -33.0
+offset_right = 33.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Warning"
+
+[node name="Desc" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -314.0
+offset_top = -24.5
+offset_right = 314.0
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "The following ikemen folders do not have a .godot_launcher configuration folder.
+%s
+Do you wish to skip, create a default configuration or create a new configuration?
+"
+autowrap_mode = 1
+
+[node name="Skip" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 41.0
+grow_vertical = 0
+text = "Skip"
+
+[node name="CreateDefault" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -59.5
+offset_top = -31.0
+offset_right = 59.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Create default"
+
+[node name="CreateCustom" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -121.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Create custom"
+
+[node name="Cancel" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Cancel"
+
+[connection signal="pressed" from="Skip" to="." method="_on_skip_pressed"]
+[connection signal="pressed" from="CreateDefault" to="." method="_on_create_default_pressed"]

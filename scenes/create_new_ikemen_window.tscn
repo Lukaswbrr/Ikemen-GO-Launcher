@@ -1,0 +1,305 @@
+[gd_scene load_steps=2 format=3 uid="uid://cycggxr4ksn78"]
+
+[ext_resource type="Script" path="res://scripts/create_new_ikemen_window.gd" id="1_qnn34"]
+
+[node name="CreateNewIkemen" type="Window"]
+title = "Create new ikemen go game"
+position = Vector2i(0, 36)
+size = Vector2i(500, 500)
+script = ExtResource("1_qnn34")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.265361, 0.265361, 0.265361, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
+clip_contents = false
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
+layout_mode = 2
+
+[node name="Title" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Title"]
+layout_mode = 2
+text = "Name"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/Title"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+placeholder_text = "Insert name"
+middle_mouse_paste_enabled = false
+
+[node name="Description" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Description"]
+layout_mode = 2
+text = "Description"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/Description"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+placeholder_text = "Insert name"
+middle_mouse_paste_enabled = false
+
+[node name="AlbumDisplay" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumDisplay"]
+layout_mode = 2
+text = "Album Display Name"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/AlbumDisplay"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+placeholder_text = "Insert name"
+middle_mouse_paste_enabled = false
+
+[node name="AlbumColor" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumColor"]
+layout_mode = 2
+text = "Album Color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/AlbumColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AlbumDisplayTextOption" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumDisplayTextOption"]
+layout_mode = 2
+text = "Should Album Display Name"
+
+[node name="CheckButton" type="CheckButton" parent="Control/ScrollContainer/VBoxContainer/AlbumDisplayTextOption"]
+layout_mode = 2
+
+[node name="AlbumImage" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumImage"]
+layout_mode = 2
+text = "Album Image
+"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/AlbumImage"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AlbumTextColor" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumTextColor"]
+layout_mode = 2
+text = "Album Text Color
+"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/AlbumTextColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BackgroundImage" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/BackgroundImage"]
+layout_mode = 2
+text = "Background Image"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/BackgroundImage"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BackgroundColor" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/BackgroundColor"]
+layout_mode = 2
+text = "Background Color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/BackgroundColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DescriptionColor" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/DescriptionColor"]
+layout_mode = 2
+text = "Description Color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/DescriptionColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleColor" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/TitleColor"]
+layout_mode = 2
+text = "Title Color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/TitleColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 0
+
+[node name="ExecutableFile" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/ExecutableFile"]
+layout_mode = 2
+tooltip_text = "The file that will be executed  when Play button is pressed"
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+text = "Executable File"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/ExecutableFile"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+placeholder_text = "Leave blank for default name"
+middle_mouse_paste_enabled = false
+
+[node name="Tags" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Tags"]
+layout_mode = 2
+tooltip_text = "When using the search bar using tags, this project will appear in the search."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+text = "Tags"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/Tags"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+placeholder_text = "Insert name"
+middle_mouse_paste_enabled = false
+
+[node name="Location" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Location"]
+layout_mode = 2
+text = "Location"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/Location"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+placeholder_text = "Insert name"
+middle_mouse_paste_enabled = false
+
+[node name="Button" type="Button" parent="Control/ScrollContainer/VBoxContainer/Location"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Select folder"
+
+[node name="FileDialog" type="FileDialog" parent="Control/ScrollContainer/VBoxContainer/Location"]
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(800, 500)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="AutoUpdate" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AutoUpdate"]
+layout_mode = 2
+tooltip_text = "If using nightly, there will be a notification automatically if theres a new nightly build when opening this project panel.
+Auto-Update only works with nightly version."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+text = "Auto-Update"
+
+[node name="CheckButton" type="CheckButton" parent="Control/ScrollContainer/VBoxContainer/AutoUpdate"]
+layout_mode = 2
+
+[node name="Version" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Version"]
+layout_mode = 2
+text = "Version"
+
+[node name="ItemList" type="ItemList" parent="Control/ScrollContainer/VBoxContainer/Version"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="System" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/System"]
+layout_mode = 2
+text = "Operating System"
+
+[node name="ItemList" type="ItemList" parent="Control/ScrollContainer/VBoxContainer/System"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+item_count = 3
+item_0/text = "Windows"
+item_1/text = "Linux"
+item_2/text = "macOs"
+
+[node name="Update" type="Button" parent="Control/ScrollContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Update
+"
+
+[node name="Create" type="Button" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Create"
+
+[node name="Fetch" type="Button" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fetch versions data"
+
+[node name="AddExistentIkemen" type="Button" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Add an existent ikemen go folder"
+
+[node name="WarningDialog" type="ConfirmationDialog" parent="."]
+title = "Warning"
+size = Vector2i(598, 100)
+dialog_text = "Changing Ikemen GO version to another version is currently not supported."
+
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Location/Button" to="." method="_on_select_folder_pressed"]
+[connection signal="dir_selected" from="Control/ScrollContainer/VBoxContainer/Location/FileDialog" to="." method="_on_file_dialog_dir_selected"]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Update" to="." method="_on_update_pressed"]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Create" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Fetch" to="." method="_on_fetch_pressed"]

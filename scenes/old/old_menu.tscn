@@ -1,0 +1,402 @@
+[gd_scene load_steps=11 format=3 uid="uid://ybsyqvo5nshp"]
+
+[ext_resource type="Script" path="res://scripts/old_menu.gd" id="1_khgms"]
+[ext_resource type="PackedScene" uid="uid://bnem82k2aeib7" path="res://scenes/about_window.tscn" id="2_7x8oy"]
+[ext_resource type="Texture2D" uid="uid://gg4cmpujcelk" path="res://assets/ikemen-logo.svg" id="2_jnave"]
+[ext_resource type="PackedScene" uid="uid://unc5qq52galc" path="res://scenes/old/old_settings.tscn" id="2_w8ckb"]
+[ext_resource type="PackedScene" uid="uid://byqbg4pnkcdel" path="res://scenes/old/old_archive_menu.tscn" id="2_yaw4s"]
+[ext_resource type="Script" path="res://scripts/https_requests.gd" id="3_v3s0n"]
+[ext_resource type="Script" path="res://scripts/download_request.gd" id="4_ffdeu"]
+
+[sub_resource type="Gradient" id="Gradient_50hyd"]
+offsets = PackedFloat32Array(0, 0.652174, 1)
+colors = PackedColorArray(0.113926, 0.342466, 0.964689, 1, 0.468112, 0.595587, 0.989628, 1, 0.332937, 0.269598, 0.884433, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_04fir"]
+gradient = SubResource("Gradient_50hyd")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dg02a"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_khgms")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_04fir")
+
+[node name="Prototype" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -158.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Very Early Prototype"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -57.0
+offset_right = 82.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Ikemen GO Launcher"
+
+[node name="Version" type="Label" parent="Title"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = 11.0
+offset_right = 56.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Version 0.0.0.24"
+
+[node name="About" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 55.0
+grow_vertical = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dg02a")
+text = "About
+"
+
+[node name="AboutWindow" parent="About" instance=ExtResource("2_7x8oy")]
+
+[node name="Download" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -388.0
+offset_top = 26.0
+offset_right = -133.0
+offset_bottom = 57.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Download latest nightly commit"
+
+[node name="Fetch" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -291.0
+offset_top = 67.0
+offset_right = -240.0
+offset_bottom = 98.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Fetch
+"
+
+[node name="Games" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 67.0
+offset_top = -31.0
+offset_right = 129.0
+grow_vertical = 0
+text = "Games"
+
+[node name="Archive" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 356.0
+offset_top = -31.0
+offset_right = 422.0
+grow_vertical = 0
+text = "Archive"
+
+[node name="ArchiveMenu" parent="Archive" instance=ExtResource("2_yaw4s")]
+visible = false
+
+[node name="DownloadProgress" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = 41.0
+offset_right = 152.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="DownloadProgress"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Download progress"
+
+[node name="ProgressBar" type="ProgressBar" parent="DownloadProgress"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -74.5
+offset_top = -27.0
+offset_right = 74.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Settings" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.0
+offset_right = 35.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Settings
+"
+
+[node name="SettingsWindow" parent="Settings" instance=ExtResource("2_w8ckb")]
+visible = false
+
+[node name="SetLocation" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 144.0
+offset_top = -31.0
+offset_right = 330.0
+grow_vertical = 0
+text = "Set Download Location"
+
+[node name="FileDialog" type="FileDialog" parent="SetLocation"]
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(1123, 500)
+ok_button_text = "Select Current Folder"
+dialog_hide_on_ok = true
+file_mode = 2
+access = 2
+
+[node name="SetPlayLocation" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -355.0
+offset_top = -31.0
+offset_right = -215.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Set Play Location"
+
+[node name="PlayDialog" type="FileDialog" parent="SetPlayLocation"]
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(1123, 500)
+ok_button_text = "Select Current Folder"
+dialog_hide_on_ok = true
+file_mode = 2
+access = 2
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -100.0
+offset_right = 63.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Play Ikemen GO
+"
+
+[node name="OpenPlayFolder" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 221.0
+offset_top = -69.0
+offset_right = 361.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Open Play Folder
+"
+
+[node name="Nightly Build Text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = -11.5
+offset_right = -118.0
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Experimental Nightly Build download"
+
+[node name="OS Download" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = 107.0
+offset_right = -118.0
+offset_bottom = 130.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Current OS: %s"
+
+[node name="SelectedDownload" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = 134.0
+offset_right = -118.0
+offset_bottom = 157.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Selected download folder: %s"
+
+[node name="SelectedPlay" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = 161.0
+offset_right = -118.0
+offset_bottom = 184.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Selected ikemen go folder to play: %s"
+
+[node name="RequestedData" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = 197.0
+offset_right = -118.0
+offset_bottom = 220.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Requested data: %s"
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 219.0
+offset_top = -86.0
+offset_right = 391.0
+offset_bottom = 86.0
+grow_vertical = 2
+texture = ExtResource("2_jnave")
+expand_mode = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+use_threads = true
+timeout = 5.0
+script = ExtResource("3_v3s0n")
+
+[node name="Download" type="HTTPRequest" parent="HTTPRequest"]
+download_chunk_size = 100000
+use_threads = true
+script = ExtResource("4_ffdeu")
+
+[node name="Download2" type="HTTPRequest" parent="HTTPRequest"]
+
+[connection signal="pressed" from="About" to="." method="_on_about_pressed"]
+[connection signal="close_requested" from="About/AboutWindow" to="." method="_on_about_window_close_requested"]
+[connection signal="pressed" from="Download" to="." method="_on_download_pressed"]
+[connection signal="pressed" from="Fetch" to="." method="_on_fetch_pressed"]
+[connection signal="pressed" from="Archive" to="." method="_on_archive_pressed"]
+[connection signal="close_requested" from="Archive/ArchiveMenu" to="." method="_on_archive_menu_close_requested"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
+[connection signal="close_requested" from="Settings/SettingsWindow" to="." method="_on_settings_window_close_requested"]
+[connection signal="reset_folders" from="Settings/SettingsWindow" to="." method="_on_settings_window_reset_folders"]
+[connection signal="save_folders" from="Settings/SettingsWindow" to="." method="_on_settings_window_save_folders"]
+[connection signal="pressed" from="SetLocation" to="." method="_on_set_location_pressed"]
+[connection signal="dir_selected" from="SetLocation/FileDialog" to="." method="_on_file_dialog_dir_selected"]
+[connection signal="pressed" from="SetPlayLocation" to="." method="_on_set_play_location__pressed"]
+[connection signal="dir_selected" from="SetPlayLocation/PlayDialog" to="." method="_on_play_dialog_dir_selected"]
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="OpenPlayFolder" to="." method="_on_open_play_folder_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="HTTPRequest" method="_on_request_completed"]
+[connection signal="request_completed" from="HTTPRequest/Download" to="." method="_on_download_request_completed"]

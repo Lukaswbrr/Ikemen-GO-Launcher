@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://cmwdfjx542xk3"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = 91.0
+offset_right = 1152.0
+offset_bottom = 526.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -442.0
+offset_top = -432.0
+offset_right = 448.0
+offset_bottom = -201.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "After selecting a game from the ikemen go launcher, there will display a game page for the game selected.
+
+In the game page, configurations from .launcher_godot folder will be used for:
+- Display colors
+- Music to play
+- Background image
+- Search tags
+and etc.
+In the future, i might add a seperate JSON file for handling appearance related options for the game. (Display game title, booleans for certains options, etc)
+The list button is for showing what stages, characters and screenpacks the current selected game has.
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.0
+offset_top = -210.0
+offset_right = 236.0
+offset_bottom = -118.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 67
+text = "KUNG FU MAN"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.5
+offset_top = -152.0
+offset_right = 20.5
+offset_bottom = -121.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Play
+"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_right = 123.0
+offset_bottom = -119.0
+grow_vertical = 0
+text = "Configurations"
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -152.0
+offset_bottom = -121.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Open folder in File Explorer"
+
+[node name="Button4" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 167.0
+offset_top = -150.0
+offset_right = 203.0
+offset_bottom = -119.0
+grow_vertical = 0
+text = "List"
+
+[node name="Button5" type="Button" parent="."]
+layout_mode = 0
+offset_left = 305.0
+offset_top = 496.0
+offset_right = 440.0
+offset_bottom = 527.0
+text = "About this game"

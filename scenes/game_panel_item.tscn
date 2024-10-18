@@ -1,0 +1,343 @@
+[gd_scene load_steps=5 format=3 uid="uid://dy888mprimb4n"]
+
+[ext_resource type="Script" path="res://scripts/game_panel_item.gd" id="1_4jonl"]
+[ext_resource type="Script" path="res://scripts/list_window.gd" id="1_v4syc"]
+[ext_resource type="Script" path="res://scripts/list_tree_node.gd" id="2_r4w7d"]
+[ext_resource type="PackedScene" uid="uid://cnwdq5mlee15m" path="res://scenes/archive_menu.tscn" id="4_g67cf"]
+
+[node name="GamePanel" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -577.0
+offset_top = -224.0
+offset_right = 575.0
+offset_bottom = 211.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4jonl")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -217.5
+offset_right = 576.0
+offset_bottom = 217.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -236.0
+offset_right = 236.0
+offset_bottom = 92.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 67
+text = "KUNG FU MAN"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -447.0
+offset_top = -103.5
+offset_right = 447.0
+offset_bottom = 133.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "After selecting a game from the ikemen go launcher, there will display a game page for the game selected.
+
+In the game page, configurations from .launcher_godot folder will be used for:
+- Display colors
+- Music to play
+- Background image
+- Search tags
+and etc.
+In the future, i might add a seperate JSON file for handling appearance related options for the game. (Display game title, booleans for certains options, etc)
+The list button is for showing what stages, characters and screenpacks the current selected game has.
+
+This is currently is getting tested as a game menu panel. I'm not really sure how i should adjust this to make it more fitting for the launcher."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.5
+offset_top = -31.0
+offset_right = 20.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Play
+"
+
+[node name="Configurations" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 123.0
+grow_vertical = 0
+text = "Configurations"
+
+[node name="OpenFolder" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Open folder in File Explorer"
+
+[node name="List" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 171.0
+offset_top = -31.0
+offset_right = 207.0
+grow_vertical = 0
+text = "List"
+
+[node name="ListWindow" type="Window" parent="List"]
+auto_translate_mode = 1
+title = "List"
+initial_position = 1
+size = Vector2i(700, 500)
+visible = false
+script = ExtResource("1_v4syc")
+
+[node name="Backgroud" type="ColorRect" parent="List/ListWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.415686, 0.662745, 0.662745, 1)
+
+[node name="TabContainer" type="TabContainer" parent="List/ListWindow"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_right = 175.0
+offset_bottom = 450.0
+grow_horizontal = 2
+tab_alignment = 1
+current_tab = 0
+
+[node name="Characters" type="TabBar" parent="List/ListWindow/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Tree" type="Tree" parent="List/ListWindow/TabContainer/Characters"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -180.0
+offset_right = 125.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_r4w7d")
+
+[node name="Add" type="Button" parent="List/ListWindow/TabContainer/Characters"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 39.0
+grow_vertical = 0
+text = "Add"
+
+[node name="MoveAway" type="Button" parent="List/ListWindow/TabContainer/Characters"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -107.5
+offset_top = -76.0
+offset_right = 107.5
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Move away from select def"
+
+[node name="MoveTo" type="Button" parent="List/ListWindow/TabContainer/Characters"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -74.5
+offset_top = -31.0
+offset_right = 74.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Move to select def"
+
+[node name="Remove" type="Button" parent="List/ListWindow/TabContainer/Characters"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -71.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Remove"
+
+[node name="Apply" type="Button" parent="List/ListWindow/TabContainer/Characters"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -121.0
+offset_right = 26.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Apply"
+
+[node name="Refresh" type="Button" parent="List/ListWindow/TabContainer/Characters"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = -121.0
+offset_right = -71.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Refresh"
+
+[node name="Stages" type="TabBar" parent="List/ListWindow/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Addons" type="TabBar" parent="List/ListWindow/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Musics" type="TabBar" parent="List/ListWindow/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="AddContext" type="PopupMenu" parent="List/ListWindow"]
+size = Vector2i(208, 100)
+item_count = 2
+item_0/text = "Open archive menu"
+item_1/text = "Add character folder"
+item_1/id = 1
+
+[node name="AddCharacterFolder" type="FileDialog" parent="List/ListWindow"]
+title = "Open a Directory"
+size = Vector2i(757, 400)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="ArchiveMenu" parent="List" instance=ExtResource("4_g67cf")]
+unique_name_in_owner = true
+size = Vector2i(500, 300)
+visible = false
+
+[node name="About" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 249.0
+offset_top = -31.0
+offset_right = 384.0
+grow_vertical = 0
+text = "About this game"
+
+[node name="Edit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -354.0
+offset_top = -31.0
+offset_right = -316.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Edit"
+
+[node name="Close" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -18.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "X"
+
+[connection signal="pressed" from="List" to="." method="_on_list_pressed"]
+[connection signal="close_requested" from="List/ListWindow" to="." method="_on_list_window_close_requested"]
+[connection signal="pressed" from="List/ListWindow/TabContainer/Characters/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="List/ListWindow/TabContainer/Characters/Add" to="List/ListWindow" method="_on_add_pressed"]
+[connection signal="pressed" from="List/ListWindow/TabContainer/Characters/MoveAway" to="List/ListWindow" method="_on_move_away_pressed"]
+[connection signal="pressed" from="List/ListWindow/TabContainer/Characters/MoveTo" to="List/ListWindow" method="_on_move_to_pressed"]
+[connection signal="pressed" from="List/ListWindow/TabContainer/Characters/Remove" to="." method="_on_remove_pressed"]
+[connection signal="pressed" from="List/ListWindow/TabContainer/Characters/Remove" to="List/ListWindow" method="_on_remove_pressed"]
+[connection signal="pressed" from="List/ListWindow/TabContainer/Characters/Apply" to="." method="_on_apply_pressed"]
+[connection signal="pressed" from="List/ListWindow/TabContainer/Characters/Apply" to="List/ListWindow" method="_on_apply_pressed"]
+[connection signal="pressed" from="List/ListWindow/TabContainer/Characters/Refresh" to="." method="_on_refresh_pressed"]
+[connection signal="id_pressed" from="List/ListWindow/AddContext" to="." method="_on_add_context_id_pressed"]
+[connection signal="dir_selected" from="List/ListWindow/AddCharacterFolder" to="." method="_on_add_character_folder_dir_selected"]
+[connection signal="add_character_button_pressed" from="List/ArchiveMenu" to="." method="_on_archive_menu_add_character_button_pressed"]
+[connection signal="close_requested" from="List/ArchiveMenu" to="." method="_on_archive_menu_close_requested"]

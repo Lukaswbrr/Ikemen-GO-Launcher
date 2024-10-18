@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://mrv3vfid6bym"]
+
+[ext_resource type="Theme" uid="uid://b588fr86lguv7" path="res://themes/game_item.tres" id="1_pinvd"]
+
+[node name="GameCover" type="Button"]
+custom_minimum_size = Vector2(150, 250)
+theme = ExtResource("1_pinvd")
