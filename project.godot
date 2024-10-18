@@ -13,6 +13,7 @@ config_version=5
 config/name="Ikemen GO Launcher"
 config/description="A experimental launcher for Ikemen GO"
 config/tags=PackedStringArray("version_control")
+run/main_scene="res://scenes/games_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
