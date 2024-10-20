@@ -164,8 +164,8 @@ static func remove_character_def(char: String, path: String, start_line: int = 1
 	char_ids.remove_at(remove_id)
 	characters.remove_at(remove_id)
 	
-	print(char_ids)
-	print(characters)
+	#print(char_ids)
+	#print(characters)
 	
 	select_ikemen = FileAccess.open(path, FileAccess.WRITE)
 	select_ikemen.store_string(remove_line(remove_id_line, ref))
