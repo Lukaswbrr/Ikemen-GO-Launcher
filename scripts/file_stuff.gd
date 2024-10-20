@@ -200,10 +200,10 @@ static func get_char_list(start: int, ref: String) -> Array:
 	var characters_ids: Array
 	
 	for k in ref_split:
-		if ref_split[id - 1].is_empty(): # end for statement if line is empty
+		if ref_split[id - 1].strip_escapes().is_empty(): # end for statement if line is empty
 			break
 		
-		array.append(ref_split[id - 1])
+		array.append(ref_split[id - 1].strip_escapes())
 		characters_ids.append(id)
 		id += 1
 	
