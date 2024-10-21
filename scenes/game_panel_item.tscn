@@ -274,10 +274,12 @@ metadata/_tab_index = 3
 
 [node name="AddContext" type="PopupMenu" parent="List/ListWindow"]
 size = Vector2i(208, 100)
-item_count = 2
+item_count = 3
 item_0/text = "Open archive menu"
 item_1/text = "Add character folder"
 item_1/id = 1
+item_2/text = "Add randomselect"
+item_2/id = 2
 
 [node name="AddCharacterFolder" type="FileDialog" parent="List/ListWindow"]
 title = "Open a Directory"

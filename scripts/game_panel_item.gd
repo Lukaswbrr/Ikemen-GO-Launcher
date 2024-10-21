@@ -101,3 +101,6 @@ func _on_add_context_id_pressed(id: int) -> void:
 			%ArchiveMenu.popup_archive(ikemen_location)
 		1:
 			$List/ListWindow/AddCharacterFolder.popup_centered()
+		2:
+			ikemen_files.add_character_def("randomselect", 1, ikemen_select_path)
+			list_window.refresh_character_list(ikemen_character_folder_path, ikemen_select_path)
