@@ -3,3 +3,8 @@ This is a experimental launcher made in [Godot 4.3](https://godotengine.org/) fo
 
 ## Documentation 
 The [documentation](docs/overview.md) explains how to use the launcher, how certain features works, etc
+
+## Disclaimer
+Ikemen GO Launcher is in alpha stage, meaning:
+- Unfinished features
+- The documentation is incomplete
