@@ -10,5 +10,5 @@ Upon downloading the launcher and running:
 You can also load IKEMEN GO folders not created by this project.
 
 ## Main features
-- [Archive](docs/archive/overview.md)
-- [List](docs/list/overview.md)
+- [Archive](archive/overview.md)
+- [List](list/overview.md)
