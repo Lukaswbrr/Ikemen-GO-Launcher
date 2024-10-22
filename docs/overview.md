@@ -12,3 +12,13 @@ You can also load IKEMEN GO folders not created by this project.
 ## Main features
 - [Archive](archive/overview.md)
 - [List](list/overview.md)
+- [Auto-Update](#auto-update)
+- [Auto-Load folders](#auto-load-folders)
+
+### Auto-Update
+Updates automatically a nightly version of ikemen go in case a new change occurs.
+Currently W.I.P
+
+### Auto-Load folders
+Support for automatically loading ikemen go folders.
+It's located in the settings menu.
