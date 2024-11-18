@@ -2,7 +2,7 @@ extends GDScript
 
 ## Handles json stuff
 
-static var default_value = {
+static var create_ikemen_default_config = {
 	"authorName" = "",
 	"commit" = "",
 	"timeCreated" = "",
@@ -15,6 +15,9 @@ static var default_value = {
 	"musicDisplayName" = "",
 	"launcherColors" = "",
 	"tags" = [],
+	"operating_system" = "",
+	"date_created" = "",
+	"date_version" = ""
 }
 
 static var old_launcher_configuration_default = {
