@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cnwdq5mlee15m" path="res://scenes/archive_menu.tscn" id="4_g67cf"]
 
 [node name="GamePanel" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -342,6 +343,7 @@ offset_bottom = 31.0
 grow_horizontal = 0
 text = "X"
 
+[connection signal="pressed" from="Update" to="." method="_on_update_pressed"]
 [connection signal="pressed" from="List" to="." method="_on_list_pressed"]
 [connection signal="close_requested" from="List/ListWindow" to="." method="_on_list_window_close_requested"]
 [connection signal="pressed" from="List/ListWindow/TabContainer/Characters/Add" to="." method="_on_add_pressed"]

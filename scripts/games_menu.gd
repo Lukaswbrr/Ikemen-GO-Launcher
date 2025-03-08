@@ -168,6 +168,7 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	var list_window = new_game.get_node("List/ListWindow")
 	var close = new_game.get_node("Close")
 	var open_folder = new_game.get_node("OpenFolder")
+	var update = new_game.get_node("Update")
 	
 	new_game.set_meta("location", ikemen["location"])
 	new_game.set_meta("exeFile", "Ikemen-GO-Linux") # name of what ikemen go file to execute
@@ -235,6 +236,10 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	
 	open_folder.pressed.connect(func():
 		OS.shell_show_in_file_manager(button.get_meta("dictData")["location"])
+		)
+	
+	update.pressed.connect(func():
+		print("ragh")
 		)
 	
 	game_container.add_child(button)
