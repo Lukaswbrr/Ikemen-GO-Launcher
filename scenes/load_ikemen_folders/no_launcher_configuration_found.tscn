@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ciy4cld0pbacv"]
 
-[ext_resource type="Script" path="res://scripts/no_launcher_configuration_found.gd" id="1_gxsqs"]
+[ext_resource type="Script" uid="uid://cu6mxskg3hbro" path="res://scripts/no_launcher_configuration_found.gd" id="1_gxsqs"]
 
 [node name="Panel" type="Control"]
 layout_mode = 3

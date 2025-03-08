@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dy888mprimb4n"]
 
-[ext_resource type="Script" path="res://scripts/game_panel_item.gd" id="1_4jonl"]
-[ext_resource type="Script" path="res://scripts/list_window.gd" id="1_v4syc"]
-[ext_resource type="Script" path="res://scripts/list_tree_node.gd" id="2_r4w7d"]
+[ext_resource type="Script" uid="uid://ccfqhrsv11fe5" path="res://scripts/game_panel_item.gd" id="1_4jonl"]
+[ext_resource type="Script" uid="uid://crw0xdkgb64ar" path="res://scripts/list_window.gd" id="1_v4syc"]
+[ext_resource type="Script" uid="uid://deji04jfcmdqs" path="res://scripts/list_tree_node.gd" id="2_r4w7d"]
 [ext_resource type="PackedScene" uid="uid://cnwdq5mlee15m" path="res://scenes/archive_menu.tscn" id="4_g67cf"]
 
 [node name="GamePanel" type="Control"]

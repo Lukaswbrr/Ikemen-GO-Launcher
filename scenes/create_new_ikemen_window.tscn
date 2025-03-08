@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cycggxr4ksn78"]
 
-[ext_resource type="Script" path="res://scripts/create_new_ikemen_window.gd" id="1_qnn34"]
+[ext_resource type="Script" uid="uid://djmgffwfrpy23" path="res://scripts/create_new_ikemen_window.gd" id="1_qnn34"]
 
 [node name="CreateNewIkemen" type="Window"]
 title = "Create new ikemen go game"

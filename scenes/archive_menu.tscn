@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnwdq5mlee15m"]
 
-[ext_resource type="Script" path="res://scripts/archive_menu.gd" id="1_mg1ba"]
-[ext_resource type="Script" path="res://scenes/context_menu/misc_context.gd" id="2_lpjvr"]
+[ext_resource type="Script" uid="uid://dvjs6moyocbo7" path="res://scripts/archive_menu.gd" id="1_mg1ba"]
+[ext_resource type="Script" uid="uid://ufeeo6ebhf0h" path="res://scenes/context_menu/misc_context.gd" id="2_lpjvr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_73ssx"]
 

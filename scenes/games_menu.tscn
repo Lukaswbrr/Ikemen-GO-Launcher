@@ -1,13 +1,13 @@
 [gd_scene load_steps=17 format=3 uid="uid://dsdl6uekdjrcs"]
 
-[ext_resource type="Script" path="res://scripts/games_menu.gd" id="1_f0vw0"]
+[ext_resource type="Script" uid="uid://bblqs45doe2n7" path="res://scripts/games_menu.gd" id="1_f0vw0"]
 [ext_resource type="Texture2D" uid="uid://gg4cmpujcelk" path="res://assets/ikemen-logo.svg" id="2_hrepa"]
 [ext_resource type="PackedScene" uid="uid://ciy4cld0pbacv" path="res://scenes/load_ikemen_folders/no_launcher_configuration_found.tscn" id="3_0yveu"]
 [ext_resource type="PackedScene" uid="uid://05hbsiiqldma" path="res://scenes/settings.tscn" id="3_8xssk"]
 [ext_resource type="PackedScene" uid="uid://cycggxr4ksn78" path="res://scenes/create_new_ikemen_window.tscn" id="3_x7kyj"]
-[ext_resource type="Script" path="res://scripts/https_requests.gd" id="4_kx00j"]
+[ext_resource type="Script" uid="uid://n2sydamb4j5j" path="res://scripts/https_requests.gd" id="4_kx00j"]
 [ext_resource type="PackedScene" uid="uid://bvn0nsupvvx1c" path="res://scenes/download_menu/confirm_dialog.tscn" id="5_brox0"]
-[ext_resource type="Script" path="res://scripts/download_request.gd" id="6_6eyi2"]
+[ext_resource type="Script" uid="uid://bdheds1cesbl3" path="res://scripts/download_request.gd" id="6_6eyi2"]
 [ext_resource type="PackedScene" uid="uid://b5dhyvd6ul4rd" path="res://scenes/download_menu/download_panel.tscn" id="6_gif6u"]
 [ext_resource type="PackedScene" uid="uid://bnem82k2aeib7" path="res://scenes/about_window.tscn" id="8_1ee4f"]
 

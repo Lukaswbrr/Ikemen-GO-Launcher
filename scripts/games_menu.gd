@@ -35,6 +35,8 @@ var confirm_version: String
 var _loaded_folders: Array
 var _no_config_dirs: Array
 var _create_id: int
+
+## probaly improve this, using the template from json handler? idk
 var _create_default_config: Dictionary = {
 	ikemen_name = "IKEMEN Go Game " + str(_create_id),
 	album_display = "IKEMEN Go Game " + str(_create_id),
@@ -52,7 +54,11 @@ var _create_default_config: Dictionary = {
 	version = "v0.99.0",
 	operating_system = OS.get_name(),
 	"date_created" = Time.get_datetime_string_from_system(false, true),
-	"date_version" = ""
+	"date_version" = "",
+	commit = "",
+	music_auto_play = "",
+	music_file = "",
+	author_name = "",
 }
 
 

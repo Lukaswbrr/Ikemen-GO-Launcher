@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://ybsyqvo5nshp"]
 
-[ext_resource type="Script" path="res://scripts/old_menu.gd" id="1_khgms"]
+[ext_resource type="Script" uid="uid://cacf0qh8o1jxj" path="res://scripts/old_menu.gd" id="1_khgms"]
 [ext_resource type="PackedScene" uid="uid://bnem82k2aeib7" path="res://scenes/about_window.tscn" id="2_7x8oy"]
 [ext_resource type="Texture2D" uid="uid://gg4cmpujcelk" path="res://assets/ikemen-logo.svg" id="2_jnave"]
 [ext_resource type="PackedScene" uid="uid://unc5qq52galc" path="res://scenes/old/old_settings.tscn" id="2_w8ckb"]
 [ext_resource type="PackedScene" uid="uid://byqbg4pnkcdel" path="res://scenes/old/old_archive_menu.tscn" id="2_yaw4s"]
-[ext_resource type="Script" path="res://scripts/https_requests.gd" id="3_v3s0n"]
-[ext_resource type="Script" path="res://scripts/download_request.gd" id="4_ffdeu"]
+[ext_resource type="Script" uid="uid://n2sydamb4j5j" path="res://scripts/https_requests.gd" id="3_v3s0n"]
+[ext_resource type="Script" uid="uid://bdheds1cesbl3" path="res://scripts/download_request.gd" id="4_ffdeu"]
 
 [sub_resource type="Gradient" id="Gradient_50hyd"]
 offsets = PackedFloat32Array(0, 0.652174, 1)

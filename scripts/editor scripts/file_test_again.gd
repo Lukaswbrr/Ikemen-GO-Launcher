@@ -101,6 +101,7 @@ func _copy_paste_folder_only(path: String, folder_only: PackedStringArray, to_pa
 			
 			if file_name in folder_only:
 				print("It's in folder only!")
+				dir.make_dir_recursive(to_path + "/" + file_name)
 				_copy_paste_folder_only(path + "/" + file_name, folder_only, to_path)
 			else:
 				for k in folder_only:
@@ -109,7 +110,8 @@ func _copy_paste_folder_only(path: String, folder_only: PackedStringArray, to_pa
 						continue
 					
 					if k in path_split:
-						print(k , " is sub child of folder only!")
+						print(path + "/" + file_name)
+						print(path.split("/")[-1], " is sub child of folder only!")
 						_copy_paste_folder_only(path + "/" + file_name, folder_only, to_path)
 						_has_found_subchild = true
 			
@@ -121,6 +123,7 @@ func _copy_paste_folder_only(path: String, folder_only: PackedStringArray, to_pa
 		else:
 			files += 1
 			print("Found file " + path + "/" + file_name)
+			DirAccess.copy_absolute(path + "/" + file_name, to_path + "/" + file_name)
 			
 			
 		file_name = dir.get_next()

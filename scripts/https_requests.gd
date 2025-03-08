@@ -127,5 +127,6 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	
 	requested_data = response
 	request_finished = true
-	print(ikemen_versions_id)
+	#print(ikemen_versions_id)
+	#print(requested_data[7])
 	print_rich("[color=green]Finished HTTP fetch request![/color]")

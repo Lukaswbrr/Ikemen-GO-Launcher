@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://05hbsiiqldma"]
 
-[ext_resource type="Script" path="res://scripts/old_settings.gd" id="1_sfjsf"]
+[ext_resource type="Script" uid="uid://cj3s1mdrhkouh" path="res://scripts/old_settings.gd" id="1_sfjsf"]
 
 [node name="SettingsWindow" type="Window"]
 title = "Settings"
