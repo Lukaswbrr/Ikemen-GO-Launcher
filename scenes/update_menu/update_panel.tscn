@@ -26,7 +26,119 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="CheckingUpdate" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CheckingUpdate"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = 30.0
+offset_right = 58.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "Checking for update..."
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="CheckingUpdate"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Update"
+
+[node name="UpdateAvailable" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UpdateAvailable"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = 30.0
+offset_right = 58.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "A new update is available!
+Your version: %s
+New version: %s"
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="UpdateAvailable"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Update"
+
+[node name="NoUpdate" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="NoUpdate"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = 30.0
+offset_right = 58.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "Your IKEMEN Go is on the latest version
+
+Your version: %s"
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="NoUpdate"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Update"
+
 [node name="Downloading" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -142,5 +254,8 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Close"
 
+[connection signal="pressed" from="CheckingUpdate/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="UpdateAvailable/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="NoUpdate/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Failed/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Success/Close" to="." method="_on_close_pressed"]
