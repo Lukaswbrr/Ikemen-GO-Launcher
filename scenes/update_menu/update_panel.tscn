@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dpslb1u2x8hf6"]
 
-[ext_resource type="Script" uid="uid://bmrrty71g5m2b" path="res://scripts/download_panel.gd" id="1_v1y2e"]
+[ext_resource type="Script" uid="uid://dovhfy2hk14k7" path="res://scenes/update_menu/update_panel.gd" id="1_v1y2e"]
 
 [node name="Panel" type="Control"]
 layout_mode = 3
@@ -59,7 +59,7 @@ offset_top = -31.0
 offset_right = 25.5
 grow_horizontal = 2
 grow_vertical = 0
-text = "Update"
+text = "Cancel"
 
 [node name="UpdateAvailable" type="Control" parent="."]
 visible = false
@@ -85,19 +85,28 @@ Your version: %s
 New version: %s"
 horizontal_alignment = 1
 
-[node name="Close" type="Button" parent="UpdateAvailable"]
+[node name="Update" type="Button" parent="UpdateAvailable"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -24.5
 offset_top = -31.0
-offset_right = 25.5
-grow_horizontal = 2
+offset_right = 65.0
 grow_vertical = 0
 text = "Update"
+
+[node name="Cancel" type="Button" parent="UpdateAvailable"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -65.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Cancel"
 
 [node name="NoUpdate" type="Control" parent="."]
 visible = false
@@ -135,7 +144,7 @@ offset_top = -31.0
 offset_right = 25.5
 grow_horizontal = 2
 grow_vertical = 0
-text = "Update"
+text = "Close"
 
 [node name="Downloading" type="Control" parent="."]
 visible = false
@@ -255,7 +264,8 @@ grow_vertical = 0
 text = "Close"
 
 [connection signal="pressed" from="CheckingUpdate/Close" to="." method="_on_close_pressed"]
-[connection signal="pressed" from="UpdateAvailable/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="UpdateAvailable/Update" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="UpdateAvailable/Cancel" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="NoUpdate/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Failed/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Success/Close" to="." method="_on_close_pressed"]

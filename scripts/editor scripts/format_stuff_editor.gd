@@ -4,7 +4,7 @@ extends EditorScript
 
 # Called when the script is executed (using File -> Run in Script Editor).
 func _run() -> void:
-	format_date_array("2024-08-12T09:57:49Z")
+	print( format_date_array("2024-08-12T09:57:49Z") )
 
 func format_date_array(date: String) -> Array:
 	var split = date.split("T")
