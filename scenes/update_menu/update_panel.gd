@@ -6,6 +6,17 @@ const format = preload("res://scripts/format_stuff.gd")
 var current_time = Time.get_datetime_dict_from_system()
 var version_time = {"year": 2026, "month": 10, "day": 12, "hour": 15, "minute": 35, "second": 50}
 
+# Current implementation idea for auto-update
+# 1 - Download ikemen go to a zip file inside the ikemen go game
+# 2 - Move desired files to TEMP
+# 3 - Delete folders and files that ins't TEMP
+# 4 - Extract content from zip to ikemen go folder game
+# 5 - Remove ikemen go zip
+# 6 - Move files from TEMP to new ikemen go folder
+# 6.1 - Maybe a option to overwrite files or delete files?
+# 7 - Remove TEMP
+# 8 - Done
+
 func _ready() -> void:
 	print( time.is_up_to_date(version_time, current_time) )
 	
