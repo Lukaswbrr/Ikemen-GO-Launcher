@@ -16,6 +16,7 @@ extends Control
 
 @onready var download_panel: Control = $DownloadPanel
 @onready var download_http: HTTPRequest = $HTTPRequest/Download
+@onready var update_http: HTTPRequest = $HTTPRequest/Update
 @onready var web: HTTPRequest = $HTTPRequest
 
 @onready var no_config_panel: Control = $NoConfigPanel
@@ -32,10 +33,14 @@ var confirm_location: String
 var confirm_os: String
 var confirm_version: String
 
+# Variables for Update HTTP
+var current_updating_ikemen: Button
+
 # Internal variables for load ikemen folder operation
 var _loaded_folders: Array
 var _no_config_dirs: Array
 var _create_id: int
+
 
 ## probaly improve this, using the template from json handler? idk
 var _create_default_config: Dictionary = {
@@ -254,6 +259,7 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 		if !available:
 			update_panel.show_update_panel("available")
 			update_panel.update_text([test_time_formatted, nightly_date])
+			update_panel.active_ikemen_go = button
 		else:
 			update_panel.show_update_panel("noupdate")
 			update_panel.update_text([test_time_formatted])
@@ -494,6 +500,24 @@ func _on_download_request_completed(result: int, response_code: int, headers: Pa
 			# check settings
 			unzip_ikemen(download_http.download_file, joined)
 
+func _on_update_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	print("response_code " + str(response_code) )
+	print("request finished.")
+	
+	match response_code:
+		200: # success
+			update_http.started = false
+			
+			var split: PackedStringArray = update_http.download_file.split("/")
+			var file_name = split[split.size() - 1]
+			split.remove_at(split.size() - 1)
+			var joined = "/".join(split)
+			
+			show_download_panel("success")
+			print("it printed!!")
+			
+			# check settings
+			unzip_ikemen(download_http.download_file, joined)
 
 func _on_about_pressed() -> void:
 	$AboutWindow.popup_centered()

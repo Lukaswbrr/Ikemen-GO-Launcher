@@ -7,14 +7,15 @@ const web = preload("res://scripts/https_requests.gd")
 var current_time = Time.get_datetime_dict_from_system()
 var version_time = {"year": 2026, "month": 10, "day": 12, "hour": 15, "minute": 35, "second": 50}
 var active_panel: Control
+var active_ikemen_go
 
 # Current implementation idea for auto-update
-# 0.5 - Check if ikemen go is up to date with latest nightly version
+# 0.5 - Check if ikemen go is up to date with latest nightly version [V]
 # 1 - Download ikemen go to a zip file inside the ikemen go game
 # 2 - Move desired files to TEMP
 # 3 - Delete folders and files that ins't TEMP
-# 4 - Extract content from zip to ikemen go folder game
-# 5 - Remove ikemen go zip
+# 4 - Extract content from zip to ikemen go folder game [ignores should autoUnzip option]
+# 5 - Remove ikemen go zip (ignores the auto remove zip option)
 # 6 - Move files from TEMP to new ikemen go folder
 # 6.1 - Maybe a option to overwrite files or delete files?
 # 7 - Remove TEMP
@@ -82,5 +83,6 @@ func update_text(strings: Array) -> void:
 	print(label.text.format(strings))
 	label.set_text(label.text.format(strings))
 
-func _on_close_pressed():
+func _on_close_pressed():	
+	active_ikemen_go = null
 	set_visible(false)
