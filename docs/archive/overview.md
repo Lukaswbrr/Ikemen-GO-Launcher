@@ -22,12 +22,12 @@ The archive supports:
 
 - (ArchiveFolderName)
   - characters
-    - (CharactersFolders)
+	- (CharactersFolders)
 
 #### Example
 - ikemen archive
   - characters
-    - kfm
+	- kfm
    
 
 In this example, for step 8, you would load the folder named ikemen archive

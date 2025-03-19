@@ -10,9 +10,9 @@ func _run() -> void:
 	current_time.erase("weekday")
 	current_time.erase("dst")
 	
-	check_time_difference(version_time, current_time)
-	
-	print(current_time)
+	#check_time_difference(version_time, current_time)
+	print(Time.get_datetime_dict_from_datetime_string("2024-10-05", false))
+	#print(current_time)
 
 func check_time_difference(time_to: Dictionary, time_from: Dictionary):
 	var difference = {

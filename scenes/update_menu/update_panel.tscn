@@ -81,8 +81,8 @@ offset_right = 58.0
 offset_bottom = 53.0
 grow_horizontal = 2
 text = "A new update is available!
-Your version: %s
-New version: %s"
+Your version: {0}
+New version: {1}"
 horizontal_alignment = 1
 
 [node name="Update" type="Button" parent="UpdateAvailable"]
@@ -129,7 +129,7 @@ offset_bottom = 53.0
 grow_horizontal = 2
 text = "Your IKEMEN Go is on the latest version
 
-Your version: %s"
+Your version: {0}"
 horizontal_alignment = 1
 
 [node name="Close" type="Button" parent="NoUpdate"]
@@ -206,7 +206,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "The update process has failed!
 
-Error code: %s"
+Error code: {0}"
 horizontal_alignment = 1
 
 [node name="Close" type="Button" parent="Failed"]
@@ -263,9 +263,50 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Close"
 
+[node name="NotNightly" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="NotNightly"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -52.0
+offset_right = 96.5
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Current IKEMEN GO is not nightly!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Close" type="Button" parent="NotNightly"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
 [connection signal="pressed" from="CheckingUpdate/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="UpdateAvailable/Update" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="UpdateAvailable/Cancel" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="NoUpdate/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Failed/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Success/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="NotNightly/Close" to="." method="_on_close_pressed"]

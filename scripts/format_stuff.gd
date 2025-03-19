@@ -1,6 +1,6 @@
 extends RefCounted
 
-static func format_date_array(date: String) -> Array:
+static func format_date_array(date: String) -> PackedStringArray:
 	var split = date.split("T")
 	var time = [split[0], split[1].replace("Z", "")]
 	

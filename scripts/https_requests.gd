@@ -1,6 +1,7 @@
 extends HTTPRequest
 
 ## Handles http requests
+const format = preload("res://scripts/format_stuff.gd")
 
 @onready var download_http: HTTPRequest = $Download
 
@@ -67,6 +68,12 @@ func download_ikemen_go(path: String, os: String, version: String) -> void:
 
 func check_version() -> bool:
 	return true
+
+func get_latest_nightly_version_date(os: String) -> String:
+	var date = get_requested_data_nightly(os)["updated_at"]
+	var final_date = " ".join(format.format_date_array(date))
+	
+	return final_date
 
 func get_requested_data_nightly(os: String) -> Dictionary:
 	match os:

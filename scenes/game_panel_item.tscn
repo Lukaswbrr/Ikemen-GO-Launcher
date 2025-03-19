@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dpslb1u2x8hf6" path="res://scenes/update_menu/update_panel.tscn" id="5_l8vvx"]
 
 [node name="GamePanel" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

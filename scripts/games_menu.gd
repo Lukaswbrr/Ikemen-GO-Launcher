@@ -21,6 +21,7 @@ extends Control
 @onready var no_config_panel: Control = $NoConfigPanel
 
 # preload scripts
+const time = preload("res://scripts/time_stuff.gd")
 var format = preload("res://scripts/format_stuff.gd")
 var json_handler = preload("res://scripts/json_handler.gd")
 
@@ -169,6 +170,8 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	var close = new_game.get_node("Close")
 	var open_folder = new_game.get_node("OpenFolder")
 	var update = new_game.get_node("Update")
+	var update_panel = new_game.get_node("UpdatePanel")
+	var update_available_panel = new_game.get_node("UpdatePanel/UpdateAvailable/Label")
 	
 	new_game.set_meta("location", ikemen["location"])
 	new_game.set_meta("exeFile", "Ikemen-GO-Linux") # name of what ikemen go file to execute
@@ -239,7 +242,21 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 		)
 	
 	update.pressed.connect(func():
-		print("ragh")
+		if !button.get_meta("dictData")["version"] == "nightly":
+			update_panel.show_update_panel("notnightly")
+			return
+		
+		var test_time = Time.get_datetime_dict_from_datetime_string(button.get_meta("dictData")["date_version"], false)
+		var available = await check_ikemen_go_nightly_update(test_time)
+		var nightly_date = web.get_latest_nightly_version_date("Linux")
+		var test_time_formatted = format.format_date_dict(test_time)
+		
+		if !available:
+			update_panel.show_update_panel("available")
+			update_panel.update_text([test_time_formatted, nightly_date])
+		else:
+			update_panel.show_update_panel("noupdate")
+			update_panel.update_text([test_time_formatted])
 		)
 	
 	game_container.add_child(button)
@@ -247,7 +264,22 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	
 	game_panel.add_child(new_game)
 	new_game.setup_paths(ikemen["location"], ikemen["location"] + "/chars", ikemen["location"] + "/data/select.def")
+
+func check_ikemen_go_nightly_update(ikemen_version: Dictionary) -> bool:
+	web.request_data()
 	
+	await web.request_completed
+	var nightly_date = web.get_latest_nightly_version_date("Linux")
+	var nightly_dict = Time.get_datetime_dict_from_datetime_string(nightly_date, false)
+	
+	print("web requested finhsed.")
+	
+	if !time.is_up_to_date(nightly_dict, ikemen_version):
+		print("not up to date.")
+		return false
+	
+	print("up to date.")
+	return true
 
 func edit_ikemen_item(item, ikemen: Dictionary):
 	var button: Button = item
@@ -294,8 +326,19 @@ func edit_ikemen_item(item, ikemen: Dictionary):
 	# Creates folders and files
 	
 	if not debug_create:
-		var config_file = FileAccess.open(ikemen["location"] + "/" + ".godot_launcher/config.json", FileAccess.WRITE)
-		config_file.store_string(JSON.stringify(ikemen, "\t"))
+		var config_file = FileAccess.open(ikemen["location"] + "/" + ".godot_launcher/config.json", FileAccess.READ_WRITE)
+		var config_data = config_file.get_as_text()
+		var json = JSON.new()
+		
+		var error = json.parse(config_data)
+		if error == OK:
+			ikemen.merge(json.data, false)
+			print("File already exists, merging new edit keys to existant config")
+			config_file.store_string(JSON.stringify(ikemen, "\t"))
+		else:
+			print("File doesn't exist???? making new one")
+			config_file.store_string(JSON.stringify(ikemen, "\t"))
+			
 		config_file.close()
 
 func load_ikemen_folders(dir: String) -> void:
@@ -401,6 +444,7 @@ func _on_create_new_ikemen_fetch_request() -> void:
 		id_for += 1
 	
 	new_ikemen_window.update_versions(version_list)
+	print("New version: " + web.get_latest_nightly_version_date("Windows"))
 
 
 func _on_confirm_dialog_confirmed() -> void:
