@@ -20,6 +20,8 @@ var active_ikemen_go
 # 5 - Remove ikemen go zip (ignores the auto remove zip option)
 # 6 - Move files from TEMP to new ikemen go folder
 # 6.1 - Maybe a option to overwrite files or delete files?
+# 6.2 - In case it's a single file, like select.def, remove the new select.def and replace with TEMP
+# select.def
 # 7 - Remove TEMP
 # 8 - Done
 
