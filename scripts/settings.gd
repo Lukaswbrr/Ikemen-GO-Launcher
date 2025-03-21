@@ -5,7 +5,7 @@ signal save_folders
 
 @onready var auto_load_folders: CheckBox = $TabContainer/General/Scroll/AutoLoadFolders/CheckBox
 @onready var auto_unzip: CheckBox = $TabContainer/General/Scroll/AutoUnzip/CheckBox
-
+@onready var keep_ikemen_zip_download: CheckBox = $TabContainer/General/Scroll/KeepIKEMENZip/CheckBox
 
 
 func _on_json_location_pressed() -> void:
@@ -18,3 +18,6 @@ func _on_save_folders_pressed() -> void:
 
 func _on_reset_folders_pressed() -> void:
 	emit_signal("reset_folders")
+
+func _on_close_requested() -> void:
+	hide()

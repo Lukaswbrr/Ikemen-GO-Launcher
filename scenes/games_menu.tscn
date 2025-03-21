@@ -150,7 +150,7 @@ offset_top = 29.0
 offset_right = -88.0
 offset_bottom = 52.0
 grow_horizontal = 0
-text = "Version: 0.0.1.2"
+text = "Version: 0.0.2.0-alpha"
 label_settings = SubResource("LabelSettings_rcmd1")
 
 [node name="Debug" type="Label" parent="."]
@@ -256,7 +256,7 @@ Proceed download?"
 [connection signal="new_ikemen_created" from="CreateNewIkemen" to="." method="_on_create_new_ikemen_new_ikemen_created"]
 [connection signal="request_completed" from="HTTPRequest" to="HTTPRequest" method="_on_request_completed"]
 [connection signal="request_completed" from="HTTPRequest/Download" to="." method="_on_download_request_completed"]
-[connection signal="request_completed" from="HTTPRequest/Update" to="." method="_on_download_request_completed"]
+[connection signal="request_completed" from="HTTPRequest/Update" to="." method="_on_update_request_completed"]
 [connection signal="canceled" from="ConfirmDialog" to="." method="_on_confirm_dialog_canceled"]
 [connection signal="confirmed" from="ConfirmDialog" to="." method="_on_confirm_dialog_confirmed"]
 [connection signal="canceled" from="NoFilesDialog" to="." method="_on_confirm_dialog_canceled"]

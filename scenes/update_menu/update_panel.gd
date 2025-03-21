@@ -1,11 +1,12 @@
 extends Control
 
+signal update_requested(ikemen: Button)
+
 const time = preload("res://scripts/time_stuff.gd")
 const format = preload("res://scripts/format_stuff.gd")
 const web = preload("res://scripts/https_requests.gd")
 
 var current_time = Time.get_datetime_dict_from_system()
-var version_time = {"year": 2026, "month": 10, "day": 12, "hour": 15, "minute": 35, "second": 50}
 var active_panel: Control
 var active_ikemen_go
 
@@ -24,13 +25,8 @@ var active_ikemen_go
 func _ready() -> void:
 	pass
 
-func check_up_to_date():
-	if ( time.is_up_to_date(version_time, current_time) ):
-		show_update_panel("noupdate")
-		$NoUpdate/Label.set_text($NoUpdate/Label.text % format.format_date_dict(current_time))
-	else:
-		show_update_panel("available")
-		$UpdateAvailable/Label.set_text($UpdateAvailable/Label.text % [format.format_date_dict(current_time), format.format_date_dict(version_time)] )
+func _process(delta: float) -> void:
+	pass
 
 func hide_update_panel() -> void:
 	if visible:
@@ -79,10 +75,15 @@ func show_update_panel(status: String) -> void:
 
 func update_text(strings: Array) -> void:
 	var label = active_panel.get_node("Label")
-	print("The label!!!!!!" + str(label))
-	print(label.text.format(strings))
+	#print("The label!!!!!!" + str(label))
+	#print(label.text.format(strings))
 	label.set_text(label.text.format(strings))
 
 func _on_close_pressed():	
 	active_ikemen_go = null
 	set_visible(false)
+
+
+func _on_update_pressed() -> void:
+	show_update_panel("downloading")
+	emit_signal("update_requested", active_ikemen_go)

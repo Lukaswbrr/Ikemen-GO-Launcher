@@ -34,7 +34,7 @@ var confirm_os: String
 var confirm_version: String
 
 # Variables for Update HTTP
-var current_updating_ikemen: Button
+var current_updating_ikemen
 
 # Internal variables for load ikemen folder operation
 var _loaded_folders: Array
@@ -65,6 +65,8 @@ var _create_default_config: Dictionary = {
 	music_auto_play = "",
 	music_file = "",
 	author_name = "",
+	ignore_update_folder = [],
+	ignore_update_file = [],
 }
 
 
@@ -107,6 +109,12 @@ func _process(_delta: float) -> void:
 		var size = download_http.get_body_size()
 		var current = download_http.get_downloaded_bytes()
 		$DownloadPanel/Downloading/ProgressBar.value = current*100/size
+	
+	if update_http.get_body_size() != 1 and !current_updating_ikemen == null:
+		var size = update_http.get_body_size()
+		var current = update_http.get_downloaded_bytes()
+		var progress = current_updating_ikemen.get_meta("gamePanel").get_node("UpdatePanel/Downloading/ProgressBar")
+		progress.value = current*100/size
 
 func clear_confirm() -> void:
 	confirm_location = ""
@@ -135,9 +143,13 @@ func check_ikemen_files_status(location: String, should_popup_if_success: bool =
 	
 	return true
 
-func download(os: String, location: String, version: String):
+func download(os: String, location: String, version: String, type: String = "new"):
 	var download_path = location + "/Ikemen_GO_" + os + "_" + version + ".zip"
-	web.download_ikemen_go(download_path, os, version)
+	match type:
+		"new":
+			web.download_ikemen_go(download_path, os, version)
+		"update":
+			web.download_ikemen_go(download_path, os, version, "update")
 
 func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	var scene = preload("res://scenes/game_item.tscn")
@@ -246,6 +258,8 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 		OS.shell_show_in_file_manager(button.get_meta("dictData")["location"])
 		)
 	
+	update_panel.update_requested.connect(_on_update_panel_update_requested)
+	
 	update.pressed.connect(func():
 		if !button.get_meta("dictData")["version"] == "nightly":
 			update_panel.show_update_panel("notnightly")
@@ -260,6 +274,8 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 			update_panel.show_update_panel("available")
 			update_panel.update_text([test_time_formatted, nightly_date])
 			update_panel.active_ikemen_go = button
+			
+			print(update_panel.active_ikemen_go.get_meta("dictData")["ikemen_name"])
 		else:
 			update_panel.show_update_panel("noupdate")
 			update_panel.update_text([test_time_formatted])
@@ -513,11 +529,12 @@ func _on_update_request_completed(result: int, response_code: int, headers: Pack
 			split.remove_at(split.size() - 1)
 			var joined = "/".join(split)
 			
-			show_download_panel("success")
-			print("it printed!!")
+			print("it printed!! 222")
 			
 			# check settings
-			unzip_ikemen(download_http.download_file, joined)
+			#unzip_ikemen(download_http.download_file, joined)
+			current_updating_ikemen.get_meta("gamePanel").get_node("UpdatePanel").show_update_panel("success")
+			current_updating_ikemen = null
 
 func _on_about_pressed() -> void:
 	$AboutWindow.popup_centered()
@@ -557,6 +574,7 @@ func save_settings() -> void:
 	var save_dict = json_handler.launcher_configuration_default.duplicate()
 	save_dict["autoLoadFolders"] = settings.auto_load_folders.button_pressed
 	save_dict["autoUnzip"] = settings.auto_unzip.button_pressed
+	save_dict["keepIKEMENZipDownload"] = settings.keep_ikemen_zip_download.button_pressed
 	save_dict["loadFolders"] = _loaded_folders
 	
 	json_handler.update_save(save_file_name, save_dict)
@@ -593,3 +611,8 @@ func _on_settings_window_reset_folders() -> void:
 	dict["loadFolders"] = []
 	
 	json_handler.update_save(save_file_name, dict)
+
+func _on_update_panel_update_requested(ikemen: Button) -> void:
+	current_updating_ikemen = ikemen
+	#print(ikemen)
+	download(current_updating_ikemen.get_meta("dictData")["operating_system"], current_updating_ikemen.get_meta("dictData")["location"], current_updating_ikemen.get_meta("dictData")["version"], "update")

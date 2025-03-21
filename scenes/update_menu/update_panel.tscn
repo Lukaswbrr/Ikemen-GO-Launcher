@@ -304,7 +304,7 @@ grow_vertical = 0
 text = "Close"
 
 [connection signal="pressed" from="CheckingUpdate/Close" to="." method="_on_close_pressed"]
-[connection signal="pressed" from="UpdateAvailable/Update" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="UpdateAvailable/Update" to="." method="_on_update_pressed"]
 [connection signal="pressed" from="UpdateAvailable/Cancel" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="NoUpdate/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Failed/Close" to="." method="_on_close_pressed"]

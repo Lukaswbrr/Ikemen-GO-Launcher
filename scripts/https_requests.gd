@@ -4,6 +4,7 @@ extends HTTPRequest
 const format = preload("res://scripts/format_stuff.gd")
 
 @onready var download_http: HTTPRequest = $Download
+@onready var update_http: HTTPRequest = $Update
 
 var requested_data: Array
 var request_finished: bool
@@ -22,15 +23,22 @@ func request_data() -> void:
 func hello() -> void:
 	print("jj")
 
-func download_ikemen_go(path: String, os: String, version: String) -> void:
+func download_ikemen_go(path: String, os: String, version: String, type: String = "new") -> void:
 	# INFO: This needs to be updated that it uses the requested_data variable
 	# in order to find the versions due to url not being consistent.
 	# or not idk
-	download_http.set_download_file(path)
+	if type == "new":
+		download_http.set_download_file(path)
 	
-	if not download_http.download_file:
-		print("There's no download file setted!")
-		return
+		if not download_http.download_file:
+			print("There's no download file setted!")
+			return
+	else:
+		update_http.set_download_file(path)
+	
+		if not update_http.download_file:
+			print("There's no update file setted!")
+			return
 	
 	var all_files_versions = ["v0.98.2", "v0.98.1", "v0.98.0", "v0.97.0"]
 	var url: String
@@ -58,12 +66,18 @@ func download_ikemen_go(path: String, os: String, version: String) -> void:
 				print("Invalid OS!")
 				return
 	
-	
-	var error = download_http.request(url)
-	if error != OK:
-		push_error("An error occurred in the HTTP request. Error ID: " + str(error) + ", URL: " + url)
+	if type == "new":
+		var error = download_http.request(url)
+		if error != OK:
+			push_error("An error occurred in the HTTP request. Error ID: " + str(error) + ", URL: " + url)
+		else:
+			download_http.started = true
 	else:
-		download_http.started = true
+		var error = update_http.request(url)
+		if error != OK:
+			push_error("An error occurred in the HTTP request. Error ID: " + str(error) + ", URL: " + url)
+		else:
+			update_http.started = true
 	
 
 func check_version() -> bool:
