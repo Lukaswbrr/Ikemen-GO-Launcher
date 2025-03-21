@@ -275,7 +275,7 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 			update_panel.update_text([test_time_formatted, nightly_date])
 			update_panel.active_ikemen_go = button
 			
-			print(update_panel.active_ikemen_go.get_meta("dictData")["ikemen_name"])
+			#print(update_panel.active_ikemen_go.get_meta("dictData")["ikemen_name"])
 		else:
 			update_panel.show_update_panel("noupdate")
 			update_panel.update_text([test_time_formatted])
@@ -490,10 +490,8 @@ func _on_confirm_dialog_canceled() -> void:
 func unzip_ikemen(download_file: String, extract_path: String) -> void:
 	match OS.get_name():
 		"Windows":
-			#print("windows exrtact")
 			var error = OS.execute("tar", ["-xf", download_file, "-C", extract_path])
 		"Linux":
-			#print("aaaa")
 			var error = OS.execute("unzip", [download_file, "-d", extract_path])
 
 func _on_download_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
@@ -514,7 +512,8 @@ func _on_download_request_completed(result: int, response_code: int, headers: Pa
 			print("it printed!!")
 			
 			# check settings
-			unzip_ikemen(download_http.download_file, joined)
+			if settings.auto_unzip.button_pressed:
+				unzip_ikemen(download_http.download_file, joined)
 
 func _on_update_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	print("response_code " + str(response_code) )
