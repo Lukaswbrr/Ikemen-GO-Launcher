@@ -45,6 +45,7 @@ layout_mode = 2
 
 [node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutoUnzip"]
 layout_mode = 2
+button_pressed = true
 text = "Automatically unzip on download"
 
 [node name="AutoLoadFolders" type="HBoxContainer" parent="TabContainer/General/Scroll"]

@@ -533,6 +533,13 @@ func _on_update_request_completed(result: int, response_code: int, headers: Pack
 			# check settings
 			#unzip_ikemen(download_http.download_file, joined)
 			current_updating_ikemen.get_meta("gamePanel").get_node("UpdatePanel").show_update_panel("success")
+			
+			var ikemen_dict = current_updating_ikemen.get_meta("dictData")
+			var config_file = FileAccess.open(ikemen_dict["location"] + "/" + ".godot_launcher/config.json", FileAccess.WRITE)
+			ikemen_dict["date_version"] = web.get_latest_nightly_version_date("Linux")
+			config_file.store_string(JSON.stringify(ikemen_dict, "\t"))
+			config_file.close()
+			
 			current_updating_ikemen = null
 
 func _on_about_pressed() -> void:
@@ -613,5 +620,5 @@ func _on_settings_window_reset_folders() -> void:
 
 func _on_update_panel_update_requested(ikemen: Button) -> void:
 	current_updating_ikemen = ikemen
-	#print(ikemen)
+	
 	download(current_updating_ikemen.get_meta("dictData")["operating_system"], current_updating_ikemen.get_meta("dictData")["location"], current_updating_ikemen.get_meta("dictData")["version"], "update")

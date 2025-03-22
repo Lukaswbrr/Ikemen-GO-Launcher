@@ -15,7 +15,7 @@ var active_ikemen_go
 # 1 - Download ikemen go to a zip file inside the ikemen go game [V]
 # 1.1 - Update the .godot_launcher config file date_version to the newest version
 # 2 - Move desired files to TEMP
-# 3 - Delete folders and files that ins't TEMP
+# 3 - Delete folders and files that ins't TEMP and .godot_launcher
 # 4 - Extract content from zip to ikemen go folder game [ignores should autoUnzip option]
 # 5 - Remove ikemen go zip (ignores the auto remove zip option)
 # 6 - Move files from TEMP to new ikemen go folder
