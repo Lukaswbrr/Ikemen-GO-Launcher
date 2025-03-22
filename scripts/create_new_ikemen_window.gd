@@ -23,6 +23,8 @@ signal fetch_request()
 @onready var location_node: LineEdit = $Control/ScrollContainer/VBoxContainer/Location/LineEdit
 @onready var version_node: ItemList = $Control/ScrollContainer/VBoxContainer/Version/ItemList
 @onready var system_node: ItemList = $Control/ScrollContainer/VBoxContainer/System/ItemList
+@onready var ignore_update_folder_node: LineEdit = $Control/ScrollContainer/VBoxContainer/IgnoreUpdateFolder/LineEdit
+@onready var ignore_update_file_node: LineEdit = $Control/ScrollContainer/VBoxContainer/IgnoreUpdateFile/LineEdit
 
 @onready var create_button = $Control/ScrollContainer/VBoxContainer/Create
 @onready var edit_button = $Control/ScrollContainer/VBoxContainer/Update
@@ -118,6 +120,10 @@ func load_values(dict: Dictionary) -> void:
 						system_node.select(system)
 						print("The system node is: " + system_node.get_item_text(system))
 						break
+			"ignore_update_folder":
+				ignore_update_folder_node.set_text(dict[k])
+			"ignore_update_file":
+				ignore_update_file_node.set_text(dict[k])
 			_:
 				print(k)
 

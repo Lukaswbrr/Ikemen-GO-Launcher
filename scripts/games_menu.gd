@@ -406,7 +406,6 @@ func _on_create_new_ikemen_new_ikemen_created(project: Dictionary) -> void:
 	var version_dict = Time.get_datetime_dict_from_datetime_string(version_date, false)
 	
 	project["date_version"] = Time.get_datetime_string_from_datetime_dict(version_dict, true)
-	print( Time.get_datetime_string_from_datetime_dict(version_dict, true) )
 	
 	create_ikemen_item(project)
 	$ConfirmDialog.popup_centered()
