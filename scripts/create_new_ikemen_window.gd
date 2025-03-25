@@ -179,7 +179,9 @@ func _on_create_pressed() -> void:
 		version = version_node.get_item_text(version_node.get_selected_items()[0]),
 		operating_system = system_node.get_item_text(system_node.get_selected_items()[0]),
 		"date_created" = Time.get_datetime_string_from_system(false, true),
-		"date_version" = ""
+		"date_version" = "",
+		ignore_update_folder = ignore_update_folder_node.text,
+		ignore_update_file = ignore_update_file_node.text
 	}
 	
 	# NOTE: Maybe add meta-data to button for album display name?
@@ -245,7 +247,9 @@ func _on_update_pressed() -> void:
 		tags = tags_node.text,
 		location = location_node.text,
 		version = version_node.get_item_text(version_node.get_selected_items()[0]),
-		operating_system = system_node.get_item_text(system_node.get_selected_items()[0])
+		operating_system = system_node.get_item_text(system_node.get_selected_items()[0]),
+		ignore_update_folder = ignore_update_folder_node.text,
+		ignore_update_file = ignore_update_file_node.text
 	}
 	
 	# NOTE: Maybe add meta-data to button for album display name?

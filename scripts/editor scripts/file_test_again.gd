@@ -54,7 +54,6 @@ func temp_create(path: String) -> void:
 		return
 	
 	DirAccess.make_dir_absolute(path + "/" + "TEMP")
-	pass
 
 func copy_paste_only(path: String, folder_only: PackedStringArray, file_only: PackedStringArray, to_path: String) -> void:
 	if path.is_empty():

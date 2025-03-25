@@ -23,8 +23,9 @@ extends Control
 
 # preload scripts
 const time = preload("res://scripts/time_stuff.gd")
-var format = preload("res://scripts/format_stuff.gd")
-var json_handler = preload("res://scripts/json_handler.gd")
+const format = preload("res://scripts/format_stuff.gd")
+const json_handler = preload("res://scripts/json_handler.gd")
+const file = preload("res://scripts/file_stuff.gd")
 
 var id = 1
 
@@ -65,8 +66,8 @@ var _create_default_config: Dictionary = {
 	music_auto_play = "",
 	music_file = "",
 	author_name = "",
-	ignore_update_folder = [],
-	ignore_update_file = [],
+	ignore_update_folder = "",
+	ignore_update_file = "",
 }
 
 
@@ -527,17 +528,22 @@ func _on_update_request_completed(result: int, response_code: int, headers: Pack
 			split.remove_at(split.size() - 1)
 			var joined = "/".join(split)
 			
-			print("it printed!! 222")
+			print("The joined thing..." + joined)
 			
 			# check settings
 			#unzip_ikemen(download_http.download_file, joined)
 			current_updating_ikemen.get_meta("gamePanel").get_node("UpdatePanel").show_update_panel("success")
 			
 			var ikemen_dict = current_updating_ikemen.get_meta("dictData")
+			var ikemen_file_name = ikemen_dict["location"] + "/Ikemen_GO_" + ikemen_dict["operating_system"] + "_" + ikemen_dict["version"] + ".zip"
 			var config_file = FileAccess.open(ikemen_dict["location"] + "/" + ".godot_launcher/config.json", FileAccess.WRITE)
 			ikemen_dict["date_version"] = web.get_latest_nightly_version_date("Linux")
 			config_file.store_string(JSON.stringify(ikemen_dict, "\t"))
 			config_file.close()
+			
+			file.temp_create(ikemen_dict["location"])
+			file.copy_paste_only(ikemen_dict["location"], ["chars"], ["data/select.def"], ikemen_dict["location"] + "/TEMP")
+			file.delete_ikemen_files(ikemen_dict["location"], [ikemen_file_name])
 			
 			current_updating_ikemen = null
 
