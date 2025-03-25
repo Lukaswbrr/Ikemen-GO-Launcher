@@ -535,7 +535,7 @@ func _on_update_request_completed(result: int, response_code: int, headers: Pack
 			current_updating_ikemen.get_meta("gamePanel").get_node("UpdatePanel").show_update_panel("success")
 			
 			var ikemen_dict = current_updating_ikemen.get_meta("dictData")
-			var ikemen_file_name = ikemen_dict["location"] + "/Ikemen_GO_" + ikemen_dict["operating_system"] + "_" + ikemen_dict["version"] + ".zip"
+			var ikemen_file_name = "Ikemen_GO_" + ikemen_dict["operating_system"] + "_" + ikemen_dict["version"] + ".zip"
 			var config_file = FileAccess.open(ikemen_dict["location"] + "/" + ".godot_launcher/config.json", FileAccess.WRITE)
 			ikemen_dict["date_version"] = web.get_latest_nightly_version_date("Linux")
 			config_file.store_string(JSON.stringify(ikemen_dict, "\t"))
