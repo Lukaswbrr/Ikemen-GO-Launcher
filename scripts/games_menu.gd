@@ -365,21 +365,17 @@ func edit_ikemen_item(item, ikemen: Dictionary):
 		config_file.close()
 
 func load_ikemen_folders(dir: String) -> void:
-	var directories = DirAccess.get_directories_at(dir)
-	
-	#print(directories)
+	var directories = DirAccess.get_directories_at(dir)	
 	
 	for k in directories:
 		var sub_dir_access = DirAccess.open(dir + "/" + k)
 		sub_dir_access.set_include_hidden(true)
 		var sub_dir = sub_dir_access.get_directories()
 		
-		#print(sub_dir)
 		
 		if ".godot_launcher" in sub_dir:
 			var config = FileAccess.open(dir + "/" + k + "/.godot_launcher/config.json", FileAccess.READ )
 			var dict = JSON.parse_string(config.get_as_text())
-			#print(dict)
 			
 			create_ikemen_item(dict, false)
 		else:
@@ -390,8 +386,12 @@ func load_ikemen_folders(dir: String) -> void:
 		print(_no_config_dirs)
 		_start_no_config_operation()
 	
-	if directories.size() > 0:
+	if directories.size() > 0 and settings.automatic_set_auto_load.button_pressed:
+		if dir in _loaded_folders:
+			return
+		
 		_loaded_folders.append(dir)
+		settings.auto_load_folder_path.set_text(",".join(_loaded_folders))
 
 func _on_button_pressed() -> void:
 	new_ikemen_window.create_ver()
@@ -588,10 +588,13 @@ func _on_no_config_panel_create_default_operation() -> void:
 
 func save_settings() -> void:
 	var save_dict = json_handler.launcher_configuration_default.duplicate()
-	save_dict["autoLoadFolders"] = settings.auto_load_folders.button_pressed
+	save_dict["autoLoadFolder"] = settings.auto_load_folder.button_pressed
 	save_dict["autoUnzip"] = settings.auto_unzip.button_pressed
 	save_dict["keepIKEMENZipDownload"] = settings.keep_ikemen_zip_download.button_pressed
-	save_dict["loadFolders"] = _loaded_folders
+	save_dict["loadFolders"] = settings.auto_load_folder_path.text
+	save_dict["automaticSetAutoLoad"] = settings.automatic_set_auto_load.button_pressed
+	
+	print("launched....")
 	
 	json_handler.update_save(save_file_name, save_dict)
 
@@ -600,16 +603,25 @@ func load_settings() -> void:
 	
 	for k in dict:
 		match k:
-			"autoLoadFolders":
-				settings.auto_load_folders.button_pressed = dict[k]
+			"autoLoadFolder":
+				settings.auto_load_folder.button_pressed = dict[k]
 			"autoUnzip":
 				settings.auto_unzip.button_pressed = dict[k]
 			"loadFolders":
-				_loaded_folders = dict[k]
-				if dict[k].size() > 0:
-					load_ikemen_folders(dict[k][0])
+				# FIXME: make "" not count as a element (empty string)
+				
+				_loaded_folders = dict[k].split(",")
+				if _loaded_folders.size() == 0:
+					settings.auto_load_folder_path.set_text("")
+				
+				if _loaded_folders.size() > 0 and !_loaded_folders[0] == "":
+					settings.auto_load_folder_path.set_text(",".join(_loaded_folders))
+					load_ikemen_folders(_loaded_folders[0])
 				else:
 					print("It's empty the load folders argument!")
+				
+			"automaticSetAutoLoad":
+				settings.automatic_set_auto_load.button_pressed = dict[k]
 			_:
 				print(k)
 
@@ -617,7 +629,7 @@ func _on_settings_pressed() -> void:
 	$Settings/SettingsWindow.popup_centered()
 
 
-func _on_settings_window_save_folders() -> void:
+func _on_settings_window_save_settings() -> void:
 	save_settings()
 
 
@@ -625,6 +637,7 @@ func _on_settings_window_reset_folders() -> void:
 	var dict = json_handler.load_autosave(save_file_name)
 	
 	dict["loadFolders"] = []
+	settings.auto_load_folder_path.set_text("")
 	
 	json_handler.update_save(save_file_name, dict)
 

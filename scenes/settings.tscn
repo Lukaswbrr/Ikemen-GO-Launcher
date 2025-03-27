@@ -48,12 +48,12 @@ layout_mode = 2
 button_pressed = true
 text = "Automatically unzip on download"
 
-[node name="AutoLoadFolders" type="HBoxContainer" parent="TabContainer/General/Scroll"]
+[node name="AutoLoadFolder" type="HBoxContainer" parent="TabContainer/General/Scroll"]
 layout_mode = 2
 
-[node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutoLoadFolders"]
+[node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutoLoadFolder"]
 layout_mode = 2
-text = "Auto load launcher folders"
+text = "Auto load launcher folder"
 
 [node name="KeepIKEMENZip" type="HBoxContainer" parent="TabContainer/General/Scroll"]
 layout_mode = 2
@@ -62,7 +62,31 @@ layout_mode = 2
 layout_mode = 2
 text = "Keep downloaded IKEMEN zip file"
 
-[node name="SaveFolders" type="Button" parent="TabContainer/General/Scroll"]
+[node name="AutomaticSetAutoLoad" type="HBoxContainer" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutomaticSetAutoLoad"]
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+text = "Automatically set auto-load
+folder when loading ikemen go
+folders."
+
+[node name="AutoloadFolderPath" type="HBoxContainer" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/General/Scroll/AutoloadFolderPath"]
+layout_mode = 2
+text = "Auto-load folder: "
+
+[node name="LineEdit" type="LineEdit" parent="TabContainer/General/Scroll/AutoloadFolderPath"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+middle_mouse_paste_enabled = false
+
+[node name="SaveSettings" type="Button" parent="TabContainer/General/Scroll"]
 layout_mode = 2
 text = "Save settings"
 
@@ -112,6 +136,6 @@ layout_mode = 2
 metadata/_tab_index = 4
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="pressed" from="TabContainer/General/Scroll/SaveFolders" to="." method="_on_save_folders_pressed"]
+[connection signal="pressed" from="TabContainer/General/Scroll/SaveSettings" to="." method="_on_save_settings_pressed"]
 [connection signal="pressed" from="TabContainer/General/Scroll/JSONLocation" to="." method="_on_json_location_pressed"]
 [connection signal="pressed" from="TabContainer/General/Scroll/ResetFolders" to="." method="_on_reset_folders_pressed"]

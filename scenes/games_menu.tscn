@@ -150,7 +150,7 @@ offset_top = 29.0
 offset_right = -88.0
 offset_bottom = 52.0
 grow_horizontal = 0
-text = "Version: 0.0.2.0-alpha"
+text = "Version: 0.0.2.0-beta"
 label_settings = SubResource("LabelSettings_rcmd1")
 
 [node name="Debug" type="Label" parent="."]
@@ -247,7 +247,7 @@ Proceed download?"
 [connection signal="pressed" from="About" to="." method="_on_about_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
 [connection signal="reset_folders" from="Settings/SettingsWindow" to="." method="_on_settings_window_reset_folders"]
-[connection signal="save_folders" from="Settings/SettingsWindow" to="." method="_on_settings_window_save_folders"]
+[connection signal="save_settings" from="Settings/SettingsWindow" to="." method="_on_settings_window_save_settings"]
 [connection signal="create_default_operation" from="NoConfigPanel" to="." method="_on_no_config_panel_create_default_operation"]
 [connection signal="skip_operation" from="NoConfigPanel" to="." method="_on_no_config_panel_skip_operation"]
 [connection signal="close_requested" from="CreateNewIkemen" to="." method="_on_create_new_ikemen_close_requested"]

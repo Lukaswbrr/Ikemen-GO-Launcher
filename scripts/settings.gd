@@ -1,19 +1,20 @@
 extends Window
 
 signal reset_folders
-signal save_folders
+signal save_settings
 
-@onready var auto_load_folders: CheckBox = $TabContainer/General/Scroll/AutoLoadFolders/CheckBox
+@onready var auto_load_folder: CheckBox = $TabContainer/General/Scroll/AutoLoadFolder/CheckBox
 @onready var auto_unzip: CheckBox = $TabContainer/General/Scroll/AutoUnzip/CheckBox
 @onready var keep_ikemen_zip_download: CheckBox = $TabContainer/General/Scroll/KeepIKEMENZip/CheckBox
-
+@onready var auto_load_folder_path: LineEdit = $TabContainer/General/Scroll/AutoloadFolderPath/LineEdit
+@onready var automatic_set_auto_load: CheckBox = $TabContainer/General/Scroll/AutomaticSetAutoLoad/CheckBox
 
 func _on_json_location_pressed() -> void:
 	OS.shell_open(OS.get_user_data_dir())
 
 
-func _on_save_folders_pressed() -> void:
-	emit_signal("save_folders")
+func _on_save_settings_pressed() -> void:
+	emit_signal("save_settings")
 
 
 func _on_reset_folders_pressed() -> void:
