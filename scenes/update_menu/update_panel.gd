@@ -15,14 +15,14 @@ var active_ikemen_go
 # 1 - Download ikemen go to a zip file inside the ikemen go game [V]
 # 1.1 - Update the .godot_launcher config file date_version to the newest version [V]
 # 2 - Move desired files to TEMP [V]
-# 3 - Delete folders and files that ins't TEMP and .godot_launcher
-# 4 - Extract content from zip to ikemen go folder game [ignores should autoUnzip option]
-# 5 - Remove ikemen go zip (ignores the auto remove zip option)
-# 6 - Move files from TEMP to new ikemen go folder
-# 6.1 - Maybe a option to overwrite files or delete files?
+# 3 - Delete folders and files that ins't TEMP and .godot_launcher [V]
+# 4 - Extract content from zip to ikemen go folder game [ignores should autoUnzip option] [V]
+# 5 - Remove ikemen go zip (ignores the auto remove zip option) [V]
+# 6 - Move files from TEMP to new ikemen go folder [V]
+# 6.1 - Add a option for not overwrite files
 # 6.2 - In case it's a single file, like select.def, remove the new select.def and replace with TEMP
 # select.def
-# 7 - Remove TEMP
+# 7 - Remove TEMP [V]
 # 8 - Done
 
 func _ready() -> void:

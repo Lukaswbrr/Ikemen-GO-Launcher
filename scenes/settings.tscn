@@ -64,7 +64,7 @@ text = "Keep downloaded IKEMEN zip file"
 
 [node name="SaveFolders" type="Button" parent="TabContainer/General/Scroll"]
 layout_mode = 2
-text = "Save auto-load folders"
+text = "Save settings"
 
 [node name="JSONLocation" type="Button" parent="TabContainer/General/Scroll"]
 layout_mode = 2
