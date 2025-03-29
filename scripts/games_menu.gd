@@ -515,6 +515,8 @@ func _on_download_request_completed(result: int, response_code: int, headers: Pa
 			# check settings
 			if settings.auto_unzip.button_pressed:
 				unzip_ikemen(download_http.download_file, joined)
+			
+			if not settings.keep_ikemen_zip_download:
 				DirAccess.remove_absolute(download_http.download_file)
 
 func _on_update_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
@@ -631,7 +633,7 @@ func _on_settings_window_save_settings() -> void:
 func _on_settings_window_reset_folders() -> void:
 	var dict = json_handler.load_autosave(save_file_name)
 	
-	dict["loadFolders"] = []
+	dict["loadFolders"] = ""
 	settings.auto_load_folder_path.set_text("")
 	
 	json_handler.update_save(save_file_name, dict)
