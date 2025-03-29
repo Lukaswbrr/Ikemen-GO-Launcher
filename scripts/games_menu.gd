@@ -377,6 +377,10 @@ func load_ikemen_folders(dir: String) -> void:
 			var config = FileAccess.open(dir + "/" + k + "/.godot_launcher/config.json", FileAccess.READ )
 			var dict = JSON.parse_string(config.get_as_text())
 			
+			if dict == null:
+				print("Somehow, the dict is null! Returning... (check the json file in " + dir + "/" + k + "/.godot_launcher/config.json if there is something wrong)")
+				return
+			
 			create_ikemen_item(dict, false)
 		else:
 			_no_config_dirs.append(dir + "/" + k)
@@ -613,7 +617,16 @@ func load_settings() -> void:
 				
 				if _loaded_folders.size() > 0 and !_loaded_folders[0] == "":
 					settings.auto_load_folder_path.set_text(",".join(_loaded_folders))
-					load_ikemen_folders(_loaded_folders[0])
+					
+					if !settings.auto_load_folder.button_pressed:
+						return
+					
+					for m in _loaded_folders:
+						if m.is_empty():
+							print("Load folder element empty, skipping")
+							continue
+						
+						load_ikemen_folders(m)
 				else:
 					settings.auto_load_folder_path.set_text("")
 					print("It's empty the load folders argument!")
