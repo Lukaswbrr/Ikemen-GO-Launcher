@@ -98,12 +98,12 @@ text = "Open settings json folder"
 layout_mode = 2
 text = "Clear auto-load folders"
 
-[node name="Auto Update" type="TabBar" parent="TabContainer"]
+[node name="Update" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Scroll" type="VBoxContainer" parent="TabContainer/Auto Update"]
+[node name="Scroll" type="VBoxContainer" parent="TabContainer/Update"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -113,12 +113,19 @@ offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
 
-[node name="KeepIKEMENZip" type="HBoxContainer" parent="TabContainer/Auto Update/Scroll"]
+[node name="KeepIKEMENZip" type="HBoxContainer" parent="TabContainer/Update/Scroll"]
 layout_mode = 2
 
-[node name="CheckBox" type="CheckBox" parent="TabContainer/Auto Update/Scroll/KeepIKEMENZip"]
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Update/Scroll/KeepIKEMENZip"]
 layout_mode = 2
 text = "Keep downloaded IKEMEN zip file"
+
+[node name="KeepTEMPFolder" type="HBoxContainer" parent="TabContainer/Update/Scroll"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Update/Scroll/KeepTEMPFolder"]
+layout_mode = 2
+text = "Keep TEMP folder"
 
 [node name="TabBar3" type="TabBar" parent="TabContainer"]
 visible = false

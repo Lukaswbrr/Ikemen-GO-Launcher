@@ -8,6 +8,8 @@ signal save_settings
 @onready var keep_ikemen_zip_download: CheckBox = $TabContainer/General/Scroll/KeepIKEMENZip/CheckBox
 @onready var auto_load_folder_path: LineEdit = $TabContainer/General/Scroll/AutoloadFolderPath/LineEdit
 @onready var automatic_set_auto_load: CheckBox = $TabContainer/General/Scroll/AutomaticSetAutoLoad/CheckBox
+@onready var update_keep_ikemen_zip_download: CheckBox = $TabContainer/Update/Scroll/KeepIKEMENZip/CheckBox
+@onready var update_keep_temp_folder: CheckBox = $TabContainer/Update/Scroll/KeepTEMPFolder/CheckBox
 
 func _on_json_location_pressed() -> void:
 	OS.shell_open(OS.get_user_data_dir())

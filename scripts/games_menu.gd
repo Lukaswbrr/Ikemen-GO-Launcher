@@ -553,9 +553,14 @@ func _on_update_request_completed(result: int, response_code: int, headers: Pack
 			file.copy_paste_only(ikemen_dict["location"], ["chars"], ["data/select.def"], ikemen_dict["location"] + "/TEMP")
 			file.delete_ikemen_files(ikemen_dict["location"], [ikemen_file_name])
 			unzip_ikemen(ikemen_dict["location"] + "/" + ikemen_file_name, ikemen_dict["location"])
-			OS.move_to_trash(ikemen_dict["location"] + "/" + ikemen_file_name)
+			
+			if not settings.update_keep_ikemen_zip_download:
+				OS.move_to_trash(ikemen_dict["location"] + "/" + ikemen_file_name)
+			
 			file.copy_paste_only(ikemen_dict["location"] + "/TEMP", ikemen_dict["ignore_update_folder"].split(","), ikemen_dict["ignore_update_file"].split(","), ikemen_dict["location"])
-			OS.move_to_trash(ikemen_dict["location"] + "/TEMP")
+			
+			if not settings.update_keep_temp_folder:
+				OS.move_to_trash(ikemen_dict["location"] + "/TEMP")
 			
 			current_updating_ikemen = null
 
