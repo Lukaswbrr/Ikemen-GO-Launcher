@@ -388,6 +388,7 @@ func load_ikemen_folders(dir: String) -> void:
 	
 	if directories.size() > 0 and settings.automatic_set_auto_load.button_pressed:
 		if dir in _loaded_folders:
+			print("Loaded directory is already in _loaded_folders, not adding")
 			return
 		
 		_loaded_folders.append(dir)
@@ -594,8 +595,6 @@ func save_settings() -> void:
 	save_dict["loadFolders"] = settings.auto_load_folder_path.text
 	save_dict["automaticSetAutoLoad"] = settings.automatic_set_auto_load.button_pressed
 	
-	print("launched....")
-	
 	json_handler.update_save(save_file_name, save_dict)
 
 func load_settings() -> void:
@@ -608,18 +607,14 @@ func load_settings() -> void:
 			"autoUnzip":
 				settings.auto_unzip.button_pressed = dict[k]
 			"loadFolders":
-				# FIXME: make "" not count as a element (empty string)
-				
-				_loaded_folders = dict[k].split(",")
-				if _loaded_folders.size() == 0:
-					settings.auto_load_folder_path.set_text("")
+				_loaded_folders = dict[k].split(",", false)
 				
 				if _loaded_folders.size() > 0 and !_loaded_folders[0] == "":
 					settings.auto_load_folder_path.set_text(",".join(_loaded_folders))
 					load_ikemen_folders(_loaded_folders[0])
 				else:
+					settings.auto_load_folder_path.set_text("")
 					print("It's empty the load folders argument!")
-				
 			"automaticSetAutoLoad":
 				settings.automatic_set_auto_load.button_pressed = dict[k]
 			_:
