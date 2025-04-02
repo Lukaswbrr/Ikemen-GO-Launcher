@@ -56,16 +56,20 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_pvc2n")
 
 [node name="Border" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0373264
-anchor_top = 0.0756173
-anchor_right = 0.93316
-anchor_bottom = 0.905864
+anchor_left = 0.0407986
+anchor_top = 0.095679
+anchor_right = 0.936632
+anchor_bottom = 0.925926
+offset_left = 7.0
+offset_top = -8.0
+offset_right = -10.0004
+offset_bottom = -16.9999
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.544226, 9.68631e-07, 1.44392e-07, 1)
-metadata/_edit_use_anchors_ = true
+color = Color(0.678871, 5.29438e-07, 0.356182, 0.505882)
 
 [node name="List" type="Control" parent="."]
 anchors_preset = 0
