@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cycggxr4ksn78"]
 
-[ext_resource type="Script" path="res://scripts/create_new_ikemen_window.gd" id="1_qnn34"]
+[ext_resource type="Script" uid="uid://djmgffwfrpy23" path="res://scripts/create_new_ikemen_window.gd" id="1_qnn34"]
 
 [node name="CreateNewIkemen" type="Window"]
 title = "Create new ikemen go game"
@@ -46,6 +46,8 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Title"]
 layout_mode = 2
+tooltip_text = "The name of the IKEMEN GO game"
+mouse_filter = 0
 text = "Name"
 
 [node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/Title"]
@@ -60,6 +62,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Description"]
 layout_mode = 2
+mouse_filter = 0
 text = "Description"
 
 [node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/Description"]
@@ -74,6 +77,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumDisplay"]
 layout_mode = 2
+mouse_filter = 0
 text = "Album Display Name"
 
 [node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/AlbumDisplay"]
@@ -88,6 +92,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumColor"]
 layout_mode = 2
+mouse_filter = 0
 text = "Album Color"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/AlbumColor"]
@@ -99,6 +104,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumDisplayTextOption"]
 layout_mode = 2
+mouse_filter = 0
 text = "Should Album Display Name"
 
 [node name="CheckButton" type="CheckButton" parent="Control/ScrollContainer/VBoxContainer/AlbumDisplayTextOption"]
@@ -109,6 +115,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumImage"]
 layout_mode = 2
+mouse_filter = 0
 text = "Album Image
 "
 
@@ -121,6 +128,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/AlbumTextColor"]
 layout_mode = 2
+mouse_filter = 0
 text = "Album Text Color
 "
 
@@ -133,6 +141,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/BackgroundImage"]
 layout_mode = 2
+mouse_filter = 0
 text = "Background Image"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/BackgroundImage"]
@@ -144,6 +153,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/BackgroundColor"]
 layout_mode = 2
+mouse_filter = 0
 text = "Background Color"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/BackgroundColor"]
@@ -155,6 +165,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/DescriptionColor"]
 layout_mode = 2
+mouse_filter = 0
 text = "Description Color"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/DescriptionColor"]
@@ -166,6 +177,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/TitleColor"]
 layout_mode = 2
+mouse_filter = 0
 text = "Title Color"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Control/ScrollContainer/VBoxContainer/TitleColor"]
@@ -180,7 +192,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/ExecutableFile"]
 layout_mode = 2
 tooltip_text = "The file that will be executed  when Play button is pressed"
-mouse_filter = 1
+mouse_filter = 0
 mouse_default_cursor_shape = 16
 text = "Executable File"
 
@@ -197,7 +209,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Tags"]
 layout_mode = 2
 tooltip_text = "When using the search bar using tags, this project will appear in the search."
-mouse_filter = 1
+mouse_filter = 0
 mouse_default_cursor_shape = 16
 text = "Tags"
 
@@ -213,6 +225,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Location"]
 layout_mode = 2
+mouse_filter = 0
 text = "Location"
 
 [node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/Location"]
@@ -242,7 +255,7 @@ layout_mode = 2
 layout_mode = 2
 tooltip_text = "If using nightly, there will be a notification automatically if theres a new nightly build when opening this project panel.
 Auto-Update only works with nightly version."
-mouse_filter = 1
+mouse_filter = 0
 mouse_default_cursor_shape = 16
 text = "Auto-Update"
 
@@ -254,6 +267,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/Version"]
 layout_mode = 2
+mouse_filter = 0
 text = "Version"
 
 [node name="ItemList" type="ItemList" parent="Control/ScrollContainer/VBoxContainer/Version"]
@@ -265,6 +279,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/System"]
 layout_mode = 2
+mouse_filter = 0
 text = "Operating System"
 
 [node name="ItemList" type="ItemList" parent="Control/ScrollContainer/VBoxContainer/System"]
@@ -274,6 +289,38 @@ item_count = 3
 item_0/text = "Windows"
 item_1/text = "Linux"
 item_2/text = "macOs"
+
+[node name="IgnoreUpdateFolder" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/IgnoreUpdateFolder"]
+layout_mode = 2
+tooltip_text = "Ignores which folders to get overwrriten during update. Example, chars folder and data folder."
+mouse_filter = 0
+text = "Ignore Folders on Update"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/IgnoreUpdateFolder"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+placeholder_text = "Example: chars, data"
+middle_mouse_paste_enabled = false
+
+[node name="IgnoreUpdateFile" type="HBoxContainer" parent="Control/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/IgnoreUpdateFile"]
+layout_mode = 2
+tooltip_text = "When updating the ikemen go game in nightly, this prevents which files not to get overwriten that's not part of Ignore Folder."
+mouse_filter = 0
+text = "Ignore Files on Update"
+
+[node name="LineEdit" type="LineEdit" parent="Control/ScrollContainer/VBoxContainer/IgnoreUpdateFile"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+placeholder_text = "Example: data/select.def"
+middle_mouse_paste_enabled = false
 
 [node name="Update" type="Button" parent="Control/ScrollContainer/VBoxContainer"]
 visible = false

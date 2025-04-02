@@ -16,13 +16,16 @@ extends Control
 
 @onready var download_panel: Control = $DownloadPanel
 @onready var download_http: HTTPRequest = $HTTPRequest/Download
+@onready var update_http: HTTPRequest = $HTTPRequest/Update
 @onready var web: HTTPRequest = $HTTPRequest
 
 @onready var no_config_panel: Control = $NoConfigPanel
 
 # preload scripts
-var format = preload("res://scripts/format_stuff.gd")
-var json_handler = preload("res://scripts/json_handler.gd")
+const time = preload("res://scripts/time_stuff.gd")
+const format = preload("res://scripts/format_stuff.gd")
+const json_handler = preload("res://scripts/json_handler.gd")
+const file = preload("res://scripts/file_stuff.gd")
 
 var id = 1
 
@@ -31,10 +34,16 @@ var confirm_location: String
 var confirm_os: String
 var confirm_version: String
 
+# Variables for Update HTTP
+var current_updating_ikemen
+
 # Internal variables for load ikemen folder operation
 var _loaded_folders: Array
 var _no_config_dirs: Array
 var _create_id: int
+
+
+## probaly improve this, using the template from json handler? idk
 var _create_default_config: Dictionary = {
 	ikemen_name = "IKEMEN Go Game " + str(_create_id),
 	album_display = "IKEMEN Go Game " + str(_create_id),
@@ -52,7 +61,13 @@ var _create_default_config: Dictionary = {
 	version = "v0.99.0",
 	operating_system = OS.get_name(),
 	"date_created" = Time.get_datetime_string_from_system(false, true),
-	"date_version" = ""
+	"date_version" = "",
+	commit = "",
+	music_auto_play = "",
+	music_file = "",
+	author_name = "",
+	ignore_update_folder = "",
+	ignore_update_file = "",
 }
 
 
@@ -95,6 +110,12 @@ func _process(_delta: float) -> void:
 		var size = download_http.get_body_size()
 		var current = download_http.get_downloaded_bytes()
 		$DownloadPanel/Downloading/ProgressBar.value = current*100/size
+	
+	if update_http.get_body_size() != 1 and !current_updating_ikemen == null:
+		var size = update_http.get_body_size()
+		var current = update_http.get_downloaded_bytes()
+		var progress = current_updating_ikemen.get_meta("gamePanel").get_node("UpdatePanel/Downloading/ProgressBar")
+		progress.value = current*100/size
 
 func clear_confirm() -> void:
 	confirm_location = ""
@@ -123,9 +144,13 @@ func check_ikemen_files_status(location: String, should_popup_if_success: bool =
 	
 	return true
 
-func download(os: String, location: String, version: String):
+func download(os: String, location: String, version: String, type: String = "new"):
 	var download_path = location + "/Ikemen_GO_" + os + "_" + version + ".zip"
-	web.download_ikemen_go(download_path, os, version)
+	match type:
+		"new":
+			web.download_ikemen_go(download_path, os, version)
+		"update":
+			web.download_ikemen_go(download_path, os, version, "update")
 
 func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	var scene = preload("res://scenes/game_item.tscn")
@@ -162,6 +187,9 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	var list_window = new_game.get_node("List/ListWindow")
 	var close = new_game.get_node("Close")
 	var open_folder = new_game.get_node("OpenFolder")
+	var update = new_game.get_node("Update")
+	var update_panel = new_game.get_node("UpdatePanel")
+	var update_available_panel = new_game.get_node("UpdatePanel/UpdateAvailable/Label")
 	
 	new_game.set_meta("location", ikemen["location"])
 	new_game.set_meta("exeFile", "Ikemen-GO-Linux") # name of what ikemen go file to execute
@@ -231,12 +259,50 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 		OS.shell_show_in_file_manager(button.get_meta("dictData")["location"])
 		)
 	
+	update_panel.update_requested.connect(_on_update_panel_update_requested)
+	
+	update.pressed.connect(func():
+		if !button.get_meta("dictData")["version"] == "nightly":
+			update_panel.show_update_panel("notnightly")
+			return
+		
+		var test_time = Time.get_datetime_dict_from_datetime_string(button.get_meta("dictData")["date_version"], false)
+		var available = await check_ikemen_go_nightly_update(test_time)
+		var nightly_date = web.get_latest_nightly_version_date("Linux")
+		var test_time_formatted = format.format_date_dict(test_time)
+		
+		if !available:
+			update_panel.show_update_panel("available")
+			update_panel.update_text([test_time_formatted, nightly_date])
+			update_panel.active_ikemen_go = button
+			
+			#print(update_panel.active_ikemen_go.get_meta("dictData")["ikemen_name"])
+		else:
+			update_panel.show_update_panel("noupdate")
+			update_panel.update_text([test_time_formatted])
+		)
+	
 	game_container.add_child(button)
 	game_container.move_child(add_ikemen_button, game_container.get_children().size())
 	
 	game_panel.add_child(new_game)
 	new_game.setup_paths(ikemen["location"], ikemen["location"] + "/chars", ikemen["location"] + "/data/select.def")
+
+func check_ikemen_go_nightly_update(ikemen_version: Dictionary) -> bool:
+	web.request_data()
 	
+	await web.request_completed
+	var nightly_date = web.get_latest_nightly_version_date("Linux")
+	var nightly_dict = Time.get_datetime_dict_from_datetime_string(nightly_date, false)
+	
+	print("web requested finhsed.")
+	
+	if !time.is_up_to_date(nightly_dict, ikemen_version):
+		print("not up to date.")
+		return false
+	
+	print("up to date.")
+	return true
 
 func edit_ikemen_item(item, ikemen: Dictionary):
 	var button: Button = item
@@ -283,26 +349,37 @@ func edit_ikemen_item(item, ikemen: Dictionary):
 	# Creates folders and files
 	
 	if not debug_create:
-		var config_file = FileAccess.open(ikemen["location"] + "/" + ".godot_launcher/config.json", FileAccess.WRITE)
-		config_file.store_string(JSON.stringify(ikemen, "\t"))
+		var config_file = FileAccess.open(ikemen["location"] + "/" + ".godot_launcher/config.json", FileAccess.READ_WRITE)
+		var config_data = config_file.get_as_text()
+		var json = JSON.new()
+		
+		var error = json.parse(config_data)
+		if error == OK:
+			ikemen.merge(json.data, false)
+			print("File already exists, merging new edit keys to existant config")
+			config_file.store_string(JSON.stringify(ikemen, "\t"))
+		else:
+			print("File doesn't exist???? making new one")
+			config_file.store_string(JSON.stringify(ikemen, "\t"))
+			
 		config_file.close()
 
 func load_ikemen_folders(dir: String) -> void:
-	var directories = DirAccess.get_directories_at(dir)
-	
-	#print(directories)
+	var directories = DirAccess.get_directories_at(dir)	
 	
 	for k in directories:
 		var sub_dir_access = DirAccess.open(dir + "/" + k)
 		sub_dir_access.set_include_hidden(true)
 		var sub_dir = sub_dir_access.get_directories()
 		
-		#print(sub_dir)
 		
 		if ".godot_launcher" in sub_dir:
 			var config = FileAccess.open(dir + "/" + k + "/.godot_launcher/config.json", FileAccess.READ )
 			var dict = JSON.parse_string(config.get_as_text())
-			#print(dict)
+			
+			if dict == null:
+				print("Somehow, the dict is null! Returning... (check the json file in " + dir + "/" + k + "/.godot_launcher/config.json if there is something wrong)")
+				return
 			
 			create_ikemen_item(dict, false)
 		else:
@@ -313,8 +390,13 @@ func load_ikemen_folders(dir: String) -> void:
 		print(_no_config_dirs)
 		_start_no_config_operation()
 	
-	if directories.size() > 0:
+	if directories.size() > 0 and settings.automatic_set_auto_load.button_pressed:
+		if dir in _loaded_folders:
+			print("Loaded directory is already in _loaded_folders, not adding")
+			return
+		
 		_loaded_folders.append(dir)
+		settings.auto_load_folder_path.set_text(",".join(_loaded_folders))
 
 func _on_button_pressed() -> void:
 	new_ikemen_window.create_ver()
@@ -330,7 +412,6 @@ func _on_create_new_ikemen_new_ikemen_created(project: Dictionary) -> void:
 	var version_dict = Time.get_datetime_dict_from_datetime_string(version_date, false)
 	
 	project["date_version"] = Time.get_datetime_string_from_datetime_dict(version_dict, true)
-	print( Time.get_datetime_string_from_datetime_dict(version_dict, true) )
 	
 	create_ikemen_item(project)
 	$ConfirmDialog.popup_centered()
@@ -390,6 +471,7 @@ func _on_create_new_ikemen_fetch_request() -> void:
 		id_for += 1
 	
 	new_ikemen_window.update_versions(version_list)
+	print("New version: " + web.get_latest_nightly_version_date("Windows"))
 
 
 func _on_confirm_dialog_confirmed() -> void:
@@ -413,10 +495,8 @@ func _on_confirm_dialog_canceled() -> void:
 func unzip_ikemen(download_file: String, extract_path: String) -> void:
 	match OS.get_name():
 		"Windows":
-			#print("windows exrtact")
 			var error = OS.execute("tar", ["-xf", download_file, "-C", extract_path])
 		"Linux":
-			#print("aaaa")
 			var error = OS.execute("unzip", [download_file, "-d", extract_path])
 
 func _on_download_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
@@ -437,8 +517,52 @@ func _on_download_request_completed(result: int, response_code: int, headers: Pa
 			print("it printed!!")
 			
 			# check settings
-			unzip_ikemen(download_http.download_file, joined)
+			if settings.auto_unzip.button_pressed:
+				unzip_ikemen(download_http.download_file, joined)
+			
+			if not settings.keep_ikemen_zip_download:
+				DirAccess.remove_absolute(download_http.download_file)
 
+func _on_update_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	print("response_code " + str(response_code) )
+	print("request finished.")
+	
+	match response_code:
+		200: # success
+			update_http.started = false
+			
+			var split: PackedStringArray = update_http.download_file.split("/")
+			var file_name = split[split.size() - 1]
+			split.remove_at(split.size() - 1)
+			var joined = "/".join(split)
+			
+			print("The joined thing..." + joined)
+			
+			# check settings
+			#unzip_ikemen(download_http.download_file, joined)
+			current_updating_ikemen.get_meta("gamePanel").get_node("UpdatePanel").show_update_panel("success")
+			
+			var ikemen_dict = current_updating_ikemen.get_meta("dictData")
+			var ikemen_file_name = "Ikemen_GO_" + ikemen_dict["operating_system"] + "_" + ikemen_dict["version"] + ".zip"
+			var config_file = FileAccess.open(ikemen_dict["location"] + "/" + ".godot_launcher/config.json", FileAccess.WRITE)
+			ikemen_dict["date_version"] = web.get_latest_nightly_version_date("Linux")
+			config_file.store_string(JSON.stringify(ikemen_dict, "\t"))
+			config_file.close()
+			
+			file.temp_create(ikemen_dict["location"])
+			file.copy_paste_only(ikemen_dict["location"], ["chars"], ["data/select.def"], ikemen_dict["location"] + "/TEMP")
+			file.delete_ikemen_files(ikemen_dict["location"], [ikemen_file_name])
+			unzip_ikemen(ikemen_dict["location"] + "/" + ikemen_file_name, ikemen_dict["location"])
+			
+			if not settings.update_keep_ikemen_zip_download.button_pressed:
+				OS.move_to_trash(ikemen_dict["location"] + "/" + ikemen_file_name)
+			
+			file.copy_paste_only(ikemen_dict["location"] + "/TEMP", ikemen_dict["ignore_update_folder"].split(","), ikemen_dict["ignore_update_file"].split(","), ikemen_dict["location"])
+			
+			if not settings.update_keep_temp_folder.button_pressed:
+				OS.move_to_trash(ikemen_dict["location"] + "/TEMP")
+			
+			current_updating_ikemen = null
 
 func _on_about_pressed() -> void:
 	$AboutWindow.popup_centered()
@@ -450,7 +574,6 @@ func _on_about_window_close_requested() -> void:
 func _on_no_config_panel_skip_operation() -> void:
 	_no_config_dirs.pop_front()
 	_start_no_config_operation()
-
 
 
 func _on_no_config_panel_create_default_operation() -> void:
@@ -476,9 +599,13 @@ func _on_no_config_panel_create_default_operation() -> void:
 
 func save_settings() -> void:
 	var save_dict = json_handler.launcher_configuration_default.duplicate()
-	save_dict["autoLoadFolders"] = settings.auto_load_folders.button_pressed
+	save_dict["autoLoadFolder"] = settings.auto_load_folder.button_pressed
 	save_dict["autoUnzip"] = settings.auto_unzip.button_pressed
-	save_dict["loadFolders"] = _loaded_folders
+	save_dict["keepIKEMENZipDownload"] = settings.keep_ikemen_zip_download.button_pressed
+	save_dict["loadFolders"] = settings.auto_load_folder_path.text
+	save_dict["automaticSetAutoLoad"] = settings.automatic_set_auto_load.button_pressed
+	save_dict["keepIKEMENZipUpdate"] = settings.update_keep_ikemen_zip_download.button_pressed
+	save_dict["keepTEMPFolder"] = settings.update_keep_temp_folder.button_pressed
 	
 	json_handler.update_save(save_file_name, save_dict)
 
@@ -487,16 +614,34 @@ func load_settings() -> void:
 	
 	for k in dict:
 		match k:
-			"autoLoadFolders":
-				settings.auto_load_folders.button_pressed = dict[k]
+			"autoLoadFolder":
+				settings.auto_load_folder.button_pressed = dict[k]
 			"autoUnzip":
 				settings.auto_unzip.button_pressed = dict[k]
 			"loadFolders":
-				_loaded_folders = dict[k]
-				if dict[k].size() > 0:
-					load_ikemen_folders(dict[k][0])
+				_loaded_folders = dict[k].split(",", false)
+				
+				if _loaded_folders.size() > 0 and !_loaded_folders[0] == "":
+					settings.auto_load_folder_path.set_text(",".join(_loaded_folders))
+					
+					if !settings.auto_load_folder.button_pressed:
+						return
+					
+					for m in _loaded_folders:
+						if m.is_empty():
+							print("Load folder element empty, skipping")
+							continue
+						
+						load_ikemen_folders(m)
 				else:
+					settings.auto_load_folder_path.set_text("")
 					print("It's empty the load folders argument!")
+			"automaticSetAutoLoad":
+				settings.automatic_set_auto_load.button_pressed = dict[k]
+			"keepIKEMENZipUpdate":
+				settings.update_keep_ikemen_zip_download.button_pressed = dict[k]
+			"keepTEMPFolder":
+				settings.update_keep_temp_folder.button_pressed = dict[k]
 			_:
 				print(k)
 
@@ -504,13 +649,19 @@ func _on_settings_pressed() -> void:
 	$Settings/SettingsWindow.popup_centered()
 
 
-func _on_settings_window_save_folders() -> void:
+func _on_settings_window_save_settings() -> void:
 	save_settings()
 
 
 func _on_settings_window_reset_folders() -> void:
 	var dict = json_handler.load_autosave(save_file_name)
 	
-	dict["loadFolders"] = []
+	dict["loadFolders"] = ""
+	settings.auto_load_folder_path.set_text("")
 	
 	json_handler.update_save(save_file_name, dict)
+
+func _on_update_panel_update_requested(ikemen: Button) -> void:
+	current_updating_ikemen = ikemen
+	
+	download(current_updating_ikemen.get_meta("dictData")["operating_system"], current_updating_ikemen.get_meta("dictData")["location"], current_updating_ikemen.get_meta("dictData")["version"], "update")

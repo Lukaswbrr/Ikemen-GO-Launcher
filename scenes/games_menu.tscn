@@ -1,15 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://dsdl6uekdjrcs"]
+[gd_scene load_steps=18 format=3 uid="uid://dsdl6uekdjrcs"]
 
-[ext_resource type="Script" path="res://scripts/games_menu.gd" id="1_f0vw0"]
+[ext_resource type="Script" uid="uid://bblqs45doe2n7" path="res://scripts/games_menu.gd" id="1_f0vw0"]
 [ext_resource type="Texture2D" uid="uid://gg4cmpujcelk" path="res://assets/ikemen-logo.svg" id="2_hrepa"]
 [ext_resource type="PackedScene" uid="uid://ciy4cld0pbacv" path="res://scenes/load_ikemen_folders/no_launcher_configuration_found.tscn" id="3_0yveu"]
 [ext_resource type="PackedScene" uid="uid://05hbsiiqldma" path="res://scenes/settings.tscn" id="3_8xssk"]
 [ext_resource type="PackedScene" uid="uid://cycggxr4ksn78" path="res://scenes/create_new_ikemen_window.tscn" id="3_x7kyj"]
-[ext_resource type="Script" path="res://scripts/https_requests.gd" id="4_kx00j"]
+[ext_resource type="Script" uid="uid://n2sydamb4j5j" path="res://scripts/https_requests.gd" id="4_kx00j"]
 [ext_resource type="PackedScene" uid="uid://bvn0nsupvvx1c" path="res://scenes/download_menu/confirm_dialog.tscn" id="5_brox0"]
-[ext_resource type="Script" path="res://scripts/download_request.gd" id="6_6eyi2"]
+[ext_resource type="Script" uid="uid://bdheds1cesbl3" path="res://scripts/download_request.gd" id="6_6eyi2"]
 [ext_resource type="PackedScene" uid="uid://b5dhyvd6ul4rd" path="res://scenes/download_menu/download_panel.tscn" id="6_gif6u"]
 [ext_resource type="PackedScene" uid="uid://bnem82k2aeib7" path="res://scenes/about_window.tscn" id="8_1ee4f"]
+[ext_resource type="Script" uid="uid://bcmkce5xdlbod" path="res://scripts/update_request.gd" id="9_vag7o"]
 
 [sub_resource type="Gradient" id="Gradient_6l1cc"]
 offsets = PackedFloat32Array(0, 0.357143, 0.598214, 0.848214)
@@ -55,7 +56,6 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_pvc2n")
 
 [node name="Border" type="ColorRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0373264
@@ -144,12 +144,12 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -214.0
+offset_left = -253.0
 offset_top = 29.0
 offset_right = -88.0
 offset_bottom = 52.0
 grow_horizontal = 0
-text = "Version: 0.0.1.2"
+text = "Version: 0.0.2.0"
 label_settings = SubResource("LabelSettings_rcmd1")
 
 [node name="Debug" type="Label" parent="."]
@@ -226,6 +226,9 @@ script = ExtResource("4_kx00j")
 [node name="Download" type="HTTPRequest" parent="HTTPRequest"]
 script = ExtResource("6_6eyi2")
 
+[node name="Update" type="HTTPRequest" parent="HTTPRequest"]
+script = ExtResource("9_vag7o")
+
 [node name="ConfirmDialog" parent="." instance=ExtResource("5_brox0")]
 
 [node name="NoFilesDialog" parent="." instance=ExtResource("5_brox0")]
@@ -243,7 +246,7 @@ Proceed download?"
 [connection signal="pressed" from="About" to="." method="_on_about_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
 [connection signal="reset_folders" from="Settings/SettingsWindow" to="." method="_on_settings_window_reset_folders"]
-[connection signal="save_folders" from="Settings/SettingsWindow" to="." method="_on_settings_window_save_folders"]
+[connection signal="save_settings" from="Settings/SettingsWindow" to="." method="_on_settings_window_save_settings"]
 [connection signal="create_default_operation" from="NoConfigPanel" to="." method="_on_no_config_panel_create_default_operation"]
 [connection signal="skip_operation" from="NoConfigPanel" to="." method="_on_no_config_panel_skip_operation"]
 [connection signal="close_requested" from="CreateNewIkemen" to="." method="_on_create_new_ikemen_close_requested"]
@@ -252,6 +255,7 @@ Proceed download?"
 [connection signal="new_ikemen_created" from="CreateNewIkemen" to="." method="_on_create_new_ikemen_new_ikemen_created"]
 [connection signal="request_completed" from="HTTPRequest" to="HTTPRequest" method="_on_request_completed"]
 [connection signal="request_completed" from="HTTPRequest/Download" to="." method="_on_download_request_completed"]
+[connection signal="request_completed" from="HTTPRequest/Update" to="." method="_on_update_request_completed"]
 [connection signal="canceled" from="ConfirmDialog" to="." method="_on_confirm_dialog_canceled"]
 [connection signal="confirmed" from="ConfirmDialog" to="." method="_on_confirm_dialog_confirmed"]
 [connection signal="canceled" from="NoFilesDialog" to="." method="_on_confirm_dialog_canceled"]

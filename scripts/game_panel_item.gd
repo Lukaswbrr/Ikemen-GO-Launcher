@@ -18,10 +18,8 @@ func setup_paths(location: String, character: String, select: String) -> void:
 	ikemen_character_folder_path = character
 	ikemen_select_path = select
 
-
 func list_apply_characters(select_location: String) -> void:
 	print("true!")
-
 
 func _on_apply_pressed() -> void:
 	print("Settings applied successfully!")
@@ -104,3 +102,7 @@ func _on_add_context_id_pressed(id: int) -> void:
 		2:
 			ikemen_files.add_character_def("randomselect", 1, ikemen_select_path)
 			list_window.refresh_character_list(ikemen_character_folder_path, ikemen_select_path)
+
+
+func _on_update_pressed() -> void:
+	$UpdatePanel.show_update_panel("checking")

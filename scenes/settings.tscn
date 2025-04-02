@@ -1,12 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://05hbsiiqldma"]
 
-[ext_resource type="Script" path="res://scripts/old_settings.gd" id="1_sfjsf"]
+[ext_resource type="Script" uid="uid://texyrhti1vj7" path="res://scripts/settings.gd" id="1_5p8wc"]
 
 [node name="SettingsWindow" type="Window"]
 title = "Settings"
 initial_position = 1
 size = Vector2i(700, 500)
-script = ExtResource("1_sfjsf")
+script = ExtResource("1_5p8wc")
 
 [node name="Backgroud" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -45,18 +45,50 @@ layout_mode = 2
 
 [node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutoUnzip"]
 layout_mode = 2
+button_pressed = true
 text = "Automatically unzip on download"
 
-[node name="AutoLoadFolders" type="HBoxContainer" parent="TabContainer/General/Scroll"]
+[node name="AutoLoadFolder" type="HBoxContainer" parent="TabContainer/General/Scroll"]
 layout_mode = 2
 
-[node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutoLoadFolders"]
+[node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutoLoadFolder"]
 layout_mode = 2
-text = "Auto load launcher folders"
+text = "Auto load launcher folder"
 
-[node name="SaveFolders" type="Button" parent="TabContainer/General/Scroll"]
+[node name="KeepIKEMENZip" type="HBoxContainer" parent="TabContainer/General/Scroll"]
 layout_mode = 2
-text = "Save auto-load folders"
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/KeepIKEMENZip"]
+layout_mode = 2
+text = "Keep downloaded IKEMEN zip file"
+
+[node name="AutomaticSetAutoLoad" type="HBoxContainer" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutomaticSetAutoLoad"]
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+text = "Automatically set auto-load
+folder when loading ikemen go
+folders."
+
+[node name="AutoloadFolderPath" type="HBoxContainer" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/General/Scroll/AutoloadFolderPath"]
+layout_mode = 2
+text = "Auto-load folder: "
+
+[node name="LineEdit" type="LineEdit" parent="TabContainer/General/Scroll/AutoloadFolderPath"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+middle_mouse_paste_enabled = false
+
+[node name="SaveSettings" type="Button" parent="TabContainer/General/Scroll"]
+layout_mode = 2
+text = "Save settings"
 
 [node name="JSONLocation" type="Button" parent="TabContainer/General/Scroll"]
 layout_mode = 2
@@ -66,10 +98,34 @@ text = "Open settings json folder"
 layout_mode = 2
 text = "Clear auto-load folders"
 
-[node name="TabBar2" type="TabBar" parent="TabContainer"]
+[node name="Update" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
+
+[node name="Scroll" type="VBoxContainer" parent="TabContainer/Update"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="KeepIKEMENZip" type="HBoxContainer" parent="TabContainer/Update/Scroll"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Update/Scroll/KeepIKEMENZip"]
+layout_mode = 2
+text = "Keep downloaded IKEMEN zip file"
+
+[node name="KeepTEMPFolder" type="HBoxContainer" parent="TabContainer/Update/Scroll"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Update/Scroll/KeepTEMPFolder"]
+layout_mode = 2
+text = "Keep TEMP folder"
 
 [node name="TabBar3" type="TabBar" parent="TabContainer"]
 visible = false
@@ -87,6 +143,6 @@ layout_mode = 2
 metadata/_tab_index = 4
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="pressed" from="TabContainer/General/Scroll/SaveFolders" to="." method="_on_save_folders_pressed"]
+[connection signal="pressed" from="TabContainer/General/Scroll/SaveSettings" to="." method="_on_save_settings_pressed"]
 [connection signal="pressed" from="TabContainer/General/Scroll/JSONLocation" to="." method="_on_json_location_pressed"]
 [connection signal="pressed" from="TabContainer/General/Scroll/ResetFolders" to="." method="_on_reset_folders_pressed"]

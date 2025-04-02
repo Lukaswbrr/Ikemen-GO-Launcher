@@ -1,0 +1,312 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpslb1u2x8hf6"]
+
+[ext_resource type="Script" uid="uid://dovhfy2hk14k7" path="res://scenes/update_menu/update_panel.gd" id="1_v1y2e"]
+
+[node name="Panel" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -75.0
+offset_right = 163.5
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_v1y2e")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CheckingUpdate" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CheckingUpdate"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = 30.0
+offset_right = 58.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "Checking for update..."
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="CheckingUpdate"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Cancel"
+
+[node name="UpdateAvailable" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UpdateAvailable"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = 30.0
+offset_right = 58.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "A new update is available!
+Your version: {0}
+New version: {1}"
+horizontal_alignment = 1
+
+[node name="Update" type="Button" parent="UpdateAvailable"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 65.0
+grow_vertical = 0
+text = "Update"
+
+[node name="Cancel" type="Button" parent="UpdateAvailable"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -65.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Cancel"
+
+[node name="NoUpdate" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="NoUpdate"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = 30.0
+offset_right = 58.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "Your IKEMEN Go is on the latest version
+
+Your version: {0}"
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="NoUpdate"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[node name="Downloading" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Downloading"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = 30.0
+offset_right = 58.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "Updating..."
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Downloading"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.5
+offset_top = -79.0
+offset_right = 110.5
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Failed" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Failed"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -52.0
+offset_right = 96.5
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "The update process has failed!
+
+Error code: {0}"
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="Failed"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[node name="Success" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Success"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -52.0
+offset_right = 96.5
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Update successful!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Close" type="Button" parent="Success"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[node name="NotNightly" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="NotNightly"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -52.0
+offset_right = 96.5
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Current IKEMEN GO is not nightly!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Close" type="Button" parent="NotNightly"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[connection signal="pressed" from="CheckingUpdate/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="UpdateAvailable/Update" to="." method="_on_update_pressed"]
+[connection signal="pressed" from="UpdateAvailable/Cancel" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="NoUpdate/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Failed/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Success/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="NotNightly/Close" to="." method="_on_close_pressed"]

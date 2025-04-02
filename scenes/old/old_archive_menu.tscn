@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://byqbg4pnkcdel"]
 
-[ext_resource type="Script" path="res://scripts/old_archive_menu.gd" id="1_mt4f1"]
-[ext_resource type="Script" path="res://scenes/context_menu/misc_context.gd" id="2_o1kfh"]
+[ext_resource type="Script" uid="uid://dpn6xghsn6yyy" path="res://scripts/old_archive_menu.gd" id="1_mt4f1"]
+[ext_resource type="Script" uid="uid://ufeeo6ebhf0h" path="res://scenes/context_menu/misc_context.gd" id="2_o1kfh"]
 
 [node name="ArchiveMenu" type="Window"]
 title = "Archive"

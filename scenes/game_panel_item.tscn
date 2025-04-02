@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dy888mprimb4n"]
+[gd_scene load_steps=6 format=3 uid="uid://dy888mprimb4n"]
 
-[ext_resource type="Script" path="res://scripts/game_panel_item.gd" id="1_4jonl"]
-[ext_resource type="Script" path="res://scripts/list_window.gd" id="1_v4syc"]
-[ext_resource type="Script" path="res://scripts/list_tree_node.gd" id="2_r4w7d"]
+[ext_resource type="Script" uid="uid://ccfqhrsv11fe5" path="res://scripts/game_panel_item.gd" id="1_4jonl"]
+[ext_resource type="Script" uid="uid://crw0xdkgb64ar" path="res://scripts/list_window.gd" id="1_v4syc"]
+[ext_resource type="Script" uid="uid://deji04jfcmdqs" path="res://scripts/list_tree_node.gd" id="2_r4w7d"]
 [ext_resource type="PackedScene" uid="uid://cnwdq5mlee15m" path="res://scenes/archive_menu.tscn" id="4_g67cf"]
+[ext_resource type="PackedScene" uid="uid://dpslb1u2x8hf6" path="res://scenes/update_menu/update_panel.tscn" id="5_l8vvx"]
 
 [node name="GamePanel" type="Control"]
 visible = false
@@ -117,14 +118,28 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Open folder in File Explorer"
 
+[node name="Update" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -808.0
+offset_top = -31.0
+offset_right = -659.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Check for updates"
+
 [node name="List" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 171.0
+offset_left = 134.0
 offset_top = -31.0
-offset_right = 207.0
+offset_right = 170.0
 grow_vertical = 0
 text = "List"
 
@@ -153,9 +168,10 @@ offset_right = 175.0
 offset_bottom = 450.0
 grow_horizontal = 2
 tab_alignment = 1
-current_tab = 0
+current_tab = 2
 
 [node name="Characters" type="TabBar" parent="List/ListWindow/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -263,7 +279,6 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="Addons" type="TabBar" parent="List/ListWindow/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -276,6 +291,7 @@ metadata/_tab_index = 3
 size = Vector2i(208, 100)
 item_count = 3
 item_0/text = "Open archive menu"
+item_0/id = 0
 item_1/text = "Add character folder"
 item_1/id = 1
 item_2/text = "Add randomselect"
@@ -298,9 +314,9 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 249.0
+offset_left = 192.0
 offset_top = -31.0
-offset_right = 384.0
+offset_right = 327.0
 grow_vertical = 0
 text = "About this game"
 
@@ -328,6 +344,11 @@ offset_bottom = 31.0
 grow_horizontal = 0
 text = "X"
 
+[node name="UpdatePanel" parent="." instance=ExtResource("5_l8vvx")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="Update" to="." method="_on_update_pressed"]
 [connection signal="pressed" from="List" to="." method="_on_list_pressed"]
 [connection signal="close_requested" from="List/ListWindow" to="." method="_on_list_window_close_requested"]
 [connection signal="pressed" from="List/ListWindow/TabContainer/Characters/Add" to="." method="_on_add_pressed"]

@@ -2,7 +2,7 @@ extends GDScript
 
 ## Handles json stuff
 
-static var default_value = {
+static var create_ikemen_default_config = {
 	"authorName" = "",
 	"commit" = "",
 	"timeCreated" = "",
@@ -15,6 +15,9 @@ static var default_value = {
 	"musicDisplayName" = "",
 	"launcherColors" = "",
 	"tags" = [],
+	"operating_system" = "",
+	"date_created" = "",
+	"date_version" = ""
 }
 
 static var old_launcher_configuration_default = {
@@ -26,8 +29,12 @@ static var old_launcher_configuration_default = {
 
 static var launcher_configuration_default = {
 	"autoLoadFolders" = false,
-	"autoUnzip" = false,
-	"loadFolders" = [],
+	"autoUnzip" = true,
+	"keepIKEMENZipDownload" = false,
+	"loadFolders" = "",
+	"automaticSetAutoLoad" = true,
+	"keepIKEMENZipUpdate" = false,
+	"keepTEMPFolder" = false,
 }
 
 static var archive_configuration_default = {

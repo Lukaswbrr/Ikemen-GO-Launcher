@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5dhyvd6ul4rd"]
 
-[ext_resource type="Script" path="res://scripts/download_panel.gd" id="1_wp7yp"]
+[ext_resource type="Script" uid="uid://bmrrty71g5m2b" path="res://scripts/download_panel.gd" id="1_wp7yp"]
 
 [node name="Panel" type="Control"]
 layout_mode = 3

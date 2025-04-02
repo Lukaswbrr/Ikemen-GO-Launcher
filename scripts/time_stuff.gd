@@ -3,7 +3,7 @@ extends RefCounted
 # Functions related to time, used to check if it's a version is up to date
 
 
-func check_time_difference(time_to: Dictionary, time_from: Dictionary):
+static func check_time_difference(time_to: Dictionary, time_from: Dictionary) -> void:
 	var difference = {
 		year = time_to["year"] - time_from["year"],
 		month = time_to["month"] - time_from["month"],
@@ -31,7 +31,7 @@ func check_time_difference(time_to: Dictionary, time_from: Dictionary):
 		print("Your version is outdated by %s years, %s months, %s days, %s hours, %s minutes, %s seconds" % [difference["year"], difference["month"], difference["day"], difference["hour"], difference["minute"], difference["second"]])
 		break
 
-func is_up_to_date(time_to: Dictionary, time_from: Dictionary) -> bool:
+static func is_up_to_date(time_to: Dictionary, time_from: Dictionary) -> bool:
 	var difference = {
 		year = time_to["year"] - time_from["year"],
 		month = time_to["month"] - time_from["month"],
@@ -43,6 +43,10 @@ func is_up_to_date(time_to: Dictionary, time_from: Dictionary) -> bool:
 	
 	
 	for k in difference:
+		if k == "year" and difference[k] < 0:
+			print(k + " is below, breaking for and being up to date!")
+			return true
+		
 		if difference[k] <= 0:
 			if k == "hour" or k == "minute":
 				
@@ -51,7 +55,7 @@ func is_up_to_date(time_to: Dictionary, time_from: Dictionary) -> bool:
 				
 				print(k + " is already above, breaking for and being up to date!")
 				return true
-				
+			
 			print(k + " is up to date!")
 			continue
 		
