@@ -554,12 +554,12 @@ func _on_update_request_completed(result: int, response_code: int, headers: Pack
 			file.delete_ikemen_files(ikemen_dict["location"], [ikemen_file_name])
 			unzip_ikemen(ikemen_dict["location"] + "/" + ikemen_file_name, ikemen_dict["location"])
 			
-			if not settings.update_keep_ikemen_zip_download:
+			if not settings.update_keep_ikemen_zip_download.button_pressed:
 				OS.move_to_trash(ikemen_dict["location"] + "/" + ikemen_file_name)
 			
 			file.copy_paste_only(ikemen_dict["location"] + "/TEMP", ikemen_dict["ignore_update_folder"].split(","), ikemen_dict["ignore_update_file"].split(","), ikemen_dict["location"])
 			
-			if not settings.update_keep_temp_folder:
+			if not settings.update_keep_temp_folder.button_pressed:
 				OS.move_to_trash(ikemen_dict["location"] + "/TEMP")
 			
 			current_updating_ikemen = null
@@ -605,6 +605,8 @@ func save_settings() -> void:
 	save_dict["keepIKEMENZipDownload"] = settings.keep_ikemen_zip_download.button_pressed
 	save_dict["loadFolders"] = settings.auto_load_folder_path.text
 	save_dict["automaticSetAutoLoad"] = settings.automatic_set_auto_load.button_pressed
+	save_dict["keepIKEMENZipUpdate"] = settings.update_keep_ikemen_zip_download.button_pressed
+	save_dict["keepTEMPFolder"] = settings.update_keep_temp_folder.button_pressed
 	
 	json_handler.update_save(save_file_name, save_dict)
 
@@ -637,6 +639,10 @@ func load_settings() -> void:
 					print("It's empty the load folders argument!")
 			"automaticSetAutoLoad":
 				settings.automatic_set_auto_load.button_pressed = dict[k]
+			"keepIKEMENZipUpdate":
+				settings.update_keep_ikemen_zip_download.button_pressed = dict[k]
+			"keepTEMPFolder":
+				settings.update_keep_temp_folder.button_pressed = dict[k]
 			_:
 				print(k)
 
