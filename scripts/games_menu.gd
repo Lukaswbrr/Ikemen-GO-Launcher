@@ -192,7 +192,7 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	var update_available_panel = new_game.get_node("UpdatePanel/UpdateAvailable/Label")
 	
 	new_game.set_meta("location", ikemen["location"])
-	new_game.set_meta("exeFile", "Ikemen-GO-Linux") # name of what ikemen go file to execute
+	new_game.set_meta("exeFile", ikemen["executable_file"]) # name of what ikemen go file to execute
 	
 	new_game.name = ikemen["ikemen_name"]
 	ikemen_title.text = ikemen["ikemen_name"]
@@ -244,8 +244,8 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 				var error = OS.execute("bash/run_ikemen_go_windows.bat", [button.get_meta("dictData")["location"], button.get_meta("dictData")["executable_file"]])
 			"Linux":
 				var error = OS.execute("bash", ["bash/run_ikemen_go_linux.sh", "open", button.get_meta("dictData")["location"], button.get_meta("dictData")["executable_file"]])
-		#print(error)
-		#print(ikemen["location"])
+			"macOS":
+				var error = OS.execute("./bash/run_ikemen_go_macos.zsh", ["open", button.get_meta("dictData")["location"], button.get_meta("dictData")["executable_file"]])
 		)
 	
 	close.pressed.connect(func():
@@ -268,7 +268,7 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 		
 		var test_time = Time.get_datetime_dict_from_datetime_string(button.get_meta("dictData")["date_version"], false)
 		var available = await check_ikemen_go_nightly_update(test_time)
-		var nightly_date = web.get_latest_nightly_version_date("Linux")
+		var nightly_date = web.get_latest_nightly_version_date(button.get_meta("dictData")["operating_system"])
 		var test_time_formatted = format.format_date_dict(test_time)
 		
 		if !available:
@@ -337,7 +337,7 @@ func edit_ikemen_item(item, ikemen: Dictionary):
 	var close = new_game.get_node("Close")
 	
 	new_game.set_meta("location", ikemen["location"])
-	new_game.set_meta("exeFile", "Ikemen-GO-Linux") # name of what ikemen go file to execute
+	new_game.set_meta("exeFile", ikemen["executable_file"]) # name of what ikemen go file to execute
 	
 	new_game.name = ikemen["ikemen_name"]
 	ikemen_title.text = ikemen["ikemen_name"]
@@ -593,6 +593,8 @@ func _on_no_config_panel_create_default_operation() -> void:
 			new_game["executable_file"] = "Ikemen_GO.exe"
 		"Linux":
 			new_game["executable_file"] = "Ikemen_GO_Linux"
+		"macOS":
+			new_game["executable_file"] = "Ikemen_GO_MacOS"
 	
 	_no_config_dirs.pop_front()
 	
