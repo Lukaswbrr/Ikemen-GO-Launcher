@@ -576,7 +576,6 @@ func _on_no_config_panel_skip_operation() -> void:
 	_start_no_config_operation()
 
 
-
 func _on_no_config_panel_create_default_operation() -> void:
 	var new_location = _no_config_dirs[0]
 	var new_game = _create_default_config.duplicate()

@@ -56,7 +56,6 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_pvc2n")
 
 [node name="Border" type="ColorRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0373264
@@ -150,7 +149,7 @@ offset_top = 29.0
 offset_right = -88.0
 offset_bottom = 52.0
 grow_horizontal = 0
-text = "Version: 0.0.2.0-beta"
+text = "Version: 0.0.2.0"
 label_settings = SubResource("LabelSettings_rcmd1")
 
 [node name="Debug" type="Label" parent="."]
