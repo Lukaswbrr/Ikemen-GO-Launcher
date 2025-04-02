@@ -498,6 +498,8 @@ func unzip_ikemen(download_file: String, extract_path: String) -> void:
 			var error = OS.execute("tar", ["-xf", download_file, "-C", extract_path])
 		"Linux":
 			var error = OS.execute("unzip", [download_file, "-d", extract_path])
+		"macOS":
+			var error = OS.execute("unzip", [download_file, "-d", extract_path])
 
 func _on_download_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	print("response_code " + str(response_code) )
