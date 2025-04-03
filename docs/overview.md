@@ -17,7 +17,7 @@ You can also load IKEMEN GO folders not created by this project.
 
 ### Auto-Update
 Updates automatically a nightly version of ikemen go in case a new change occurs.
-Currently W.I.P
+The update feature has been implemented in v0.0.2.1 version, however the auto update has not been implemented yet.
 
 ### Auto-Load folders
 Support for automatically loading ikemen go folders.
