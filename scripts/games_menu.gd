@@ -124,21 +124,26 @@ func clear_confirm() -> void:
 
 func check_ikemen_files_status(location: String, should_popup_if_success: bool = false) -> bool:
 	var dir = DirAccess.open(location)
+	dir.set_include_hidden(true)
 	
 	if dir == null:
 		print("Invalid location!")
 		return false
 	
-	dir.include_hidden = true
-	
-	var dirs_hidden = dir.get_directories()
-	var dirs = DirAccess.get_directories_at(location)
+	var dirs = dir.get_directories()
 	var files = DirAccess.get_files_at(location)
+	var exception = [".godot_launcher"]
+	var actual_dirs = dirs
 	
-	if ".godot_launcher" in dirs_hidden:
+	if ".godot_launcher" in dirs:
 		print("configuration found")
 	
-	if dirs.is_empty():
+	print(actual_dirs)
+	for k in dirs:
+		if k in exception:
+			actual_dirs.remove_at(actual_dirs.find(k))
+	
+	if actual_dirs.is_empty():
 		print("there are no directories!")
 		return false
 	
@@ -223,6 +228,7 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 			get_node(k).visible = !get_node(k).visible
 		
 		if not check_ikemen_files_status(button.get_meta("dictData")["location"]):
+			print(button.get_meta("dictData")["location"])
 			confirm_location = button.get_meta("dictData")["location"]
 			confirm_os = button.get_meta("dictData")["operating_system"]
 			confirm_version = button.get_meta("dictData")["version"]
@@ -241,7 +247,11 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	play.pressed.connect(func():
 		match OS.get_name():
 			"Windows":
+				print("hello??")
 				var error = OS.execute("bash/run_ikemen_go_windows.bat", [button.get_meta("dictData")["location"], button.get_meta("dictData")["executable_file"]])
+				print(error)
+				print(button.get_meta("dictData")["location"])
+				print(button.get_meta("dictData")["executable_file"])
 			"Linux":
 				var error = OS.execute("bash", ["bash/run_ikemen_go_linux.sh", "open", button.get_meta("dictData")["location"], button.get_meta("dictData")["executable_file"]])
 			"macOS":
@@ -267,7 +277,7 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 			return
 		
 		var test_time = Time.get_datetime_dict_from_datetime_string(button.get_meta("dictData")["date_version"], false)
-		var available = await check_ikemen_go_nightly_update(test_time)
+		var available = await check_ikemen_go_nightly_update(test_time, button.get_meta("dictData")["operating_system"])
 		var nightly_date = web.get_latest_nightly_version_date(button.get_meta("dictData")["operating_system"])
 		var test_time_formatted = format.format_date_dict(test_time)
 		
@@ -288,11 +298,11 @@ func create_ikemen_item(ikemen: Dictionary, create_config: bool = true) -> void:
 	game_panel.add_child(new_game)
 	new_game.setup_paths(ikemen["location"], ikemen["location"] + "/chars", ikemen["location"] + "/data/select.def")
 
-func check_ikemen_go_nightly_update(ikemen_version: Dictionary) -> bool:
+func check_ikemen_go_nightly_update(ikemen_version: Dictionary, operating_system: String) -> bool:
 	web.request_data()
 	
 	await web.request_completed
-	var nightly_date = web.get_latest_nightly_version_date("Linux")
+	var nightly_date = web.get_latest_nightly_version_date(operating_system)
 	var nightly_dict = Time.get_datetime_dict_from_datetime_string(nightly_date, false)
 	
 	print("web requested finhsed.")
@@ -523,6 +533,7 @@ func _on_download_request_completed(result: int, response_code: int, headers: Pa
 				unzip_ikemen(download_http.download_file, joined)
 			
 			if not settings.keep_ikemen_zip_download:
+				print("removing..")
 				DirAccess.remove_absolute(download_http.download_file)
 
 func _on_update_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
@@ -547,7 +558,7 @@ func _on_update_request_completed(result: int, response_code: int, headers: Pack
 			var ikemen_dict = current_updating_ikemen.get_meta("dictData")
 			var ikemen_file_name = "Ikemen_GO_" + ikemen_dict["operating_system"] + "_" + ikemen_dict["version"] + ".zip"
 			var config_file = FileAccess.open(ikemen_dict["location"] + "/" + ".godot_launcher/config.json", FileAccess.WRITE)
-			ikemen_dict["date_version"] = web.get_latest_nightly_version_date("Linux")
+			ikemen_dict["date_version"] = web.get_latest_nightly_version_date(ikemen_dict["operating_system"])
 			config_file.store_string(JSON.stringify(ikemen_dict, "\t"))
 			config_file.close()
 			

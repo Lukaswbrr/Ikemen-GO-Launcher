@@ -153,7 +153,7 @@ offset_top = 29.0
 offset_right = -88.0
 offset_bottom = 52.0
 grow_horizontal = 0
-text = "Version: 0.0.2.1"
+text = "Version: 0.0.2.2-alpha"
 label_settings = SubResource("LabelSettings_rcmd1")
 
 [node name="Debug" type="Label" parent="."]

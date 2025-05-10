@@ -53,6 +53,7 @@ layout_mode = 2
 
 [node name="CheckBox" type="CheckBox" parent="TabContainer/General/Scroll/AutoLoadFolder"]
 layout_mode = 2
+button_pressed = true
 text = "Auto load launcher folder"
 
 [node name="KeepIKEMENZip" type="HBoxContainer" parent="TabContainer/General/Scroll"]
